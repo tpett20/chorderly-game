@@ -1,1 +1,4 @@
 # chorderly-game
+
+# Pseudocode
+
