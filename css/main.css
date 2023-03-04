@@ -1,0 +1,50 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+    /* border: 1px solid black;  */
+}
+
+h1 {
+    text-align: center
+}
+
+#board {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 48vmin;
+    gap: 1vmin;
+    margin: 14vmin auto; 
+    rotate: 45deg; 
+}
+
+div {
+    height: 23vmin;
+    width: 23vmin;
+    background-color: lightblue;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+div:hover {
+    background-color: royalblue;
+}
+
+div > p {
+    rotate: -45deg;
+}
+
+input {
+    display: block; 
+    margin: 0 auto; 
+}
+
+footer {
+    text-align: center;
+}
