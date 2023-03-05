@@ -17,94 +17,93 @@ The 4 Chord Sounds<br/>
 Chord Sound Duration<br/>
 Message Duration<br/>
 
-<ins>Variables</ins>
-Computer Sequence of Random Chords
-Player Input Sequence
-Input Index
+<ins>Variables</ins><br/>
+Computer Sequence of Random Chords<br/>
+Player Input Sequence<br/>
+Input Index<br/>
 Game Mode = Normal
 (setting default Game Mode to Normal in Variables, rather than in the Render Function so that it doesn't reset during gameplay)
-Player Score
-High Score
+Player Score<br/>
+High Score<br/>
 
 <ins>Cached DOM Elements</ins>
-Game Squares
-Buttons (Start Game and Game Modes)
-Your Score Element
-High Score Element
-Prompt Element
+Game Squares<br/>
+Buttons (Start Game and Game Modes)<br/>
+Your Score Element<br/>
+High Score Element<br/>
+Prompt Element<br/>
 
-<ins>Event Response</ins>
-Event Listeners
-    Add Event Listeners to Start Game and Game Mode Buttons
+<ins>Event Response</ins><br/>
+Event Listeners<br/>
+    Add Event Listeners to Start Game and Game Mode Buttons<br/>
 
-Handle Game Mode Button Click
-    Set Game Mode Based on Button ID
+Handle Game Mode Button Click<br/>
+    Set Game Mode Based on Button ID<br/>
 
-Handle "Start Game" Button Click
-    Get Computer Sequence
-    Play Computer Sequence
-    Add Event Listeners to Game Squares
+Handle "Start Game" Button Click<br/>
+    Get Computer Sequence<br/>
+    Play Computer Sequence<br/>
+    Add Event Listeners to Game Squares<br/>
 
-Handle Game Square Click
-    Use Button ID to Add Corresponding Value to Player Input Sequence
-    Check If Input is Correct (function below)
-    Play Corresponding Sound for Specified Duration
-    Remove + Add CSS Classes to Appropriate Game Square to Depict Appropriate Colors for Specified Duration
-    Input Index + 1
+Handle Game Square Click<br/>
+    Use Button ID to Add Corresponding Value to Player Input Sequence<br/>
+    Check If Input is Correct (function below)<br/>
+    Play Corresponding Sound for Specified Duration<br/>
+    Remove + Add CSS Classes to Appropriate Game Square to Depict<br/>Appropriate Colors for Specified Duration<br/>
+    Input Index + 1<br/>
 
 <ins>Functions</ins>
-Initialize
-    Your Score = 0
-    Computer Sequence = []
-    Player Input Sequence = []
-    Input Index = 0
-    Render
+Initialize<br/>
+    Your Score = 0<br/>
+    Computer Sequence = []<br/>
+    Player Input Sequence = []<br/>
+    Input Index = 0<br/>
+    Render<br/>
 
-Render
-    Game Mode
-    Prompt Element
-    Squares
-    Results
+Render<br/>
+    Game Mode<br/>
+    Prompt Element<br/>
+    Squares<br/>
+    Results<br/>
 
-Render Game Mode
+Render Game Mode<br/>
     If Game Mode = Normal, Normal Button is Displayed with a Check Mark
-    else, Play by Ear Button is Displayed with a Check Mark
+    else, Play by Ear Button is Displayed with a Check Mark<br/>
 
-Render Prompt Element
-    Remove Text
+Render Prompt Element<br/>
+    Remove Text<br/>
 
-Render Squares
-    Remove + Add CSS Classes to Set Square Colors
+Render Squares<br/>
+    Remove + Add CSS Classes to Set Square Colors<br/>
 
-Render Results
-    
-    Add to Your Score if Player Inputs Correct Sequence
-    Replace High Score if Player Inputs Wrong Sequence After a New High Score
+Render Results<br/>
+    Add to Your Score if Player Inputs Correct Sequence<br/>
+    Replace High Score if Player Inputs Wrong Sequence After a New High Score<br/>
 
-Get Computer Sequence
-    Add Random Chord Value to Computer Sequence
+Get Computer Sequence<br/>
+    Add Random Chord Value to Computer Sequence<br/>
 
-Play Computer Sequence
-    Use For Loop to Iterate Over Computer Sequence Array Length:
-        Use Computer Sequence Chord Value at Index to Play Appropriate Sound for Specified Duration
-        If Game Mode = Normal
-            Remove + Add CSS Classes to Corresponding Game Square to Depict Square Being Played for Specified Duration (Synchronous with Sound)
-    Display Player's Turn Prompt
+Play Computer Sequence<br/>
+    Use For Loop to Iterate Over Computer Sequence Array Length:<br/>
+        Use Computer Sequence Chord Value at Index to Play Appropriate Sound for Specified Duration<br/>
+        If Game Mode = Normal<br/>
+            Remove + Add CSS Classes to Corresponding Game Square to Depict Square Being Played for Specified Duration (Synchronous with Sound)<br/>
+    Display Player's Turn Prompt<br/>
 
-Display Player Turn Prompt
-    Replace Empty Prompt Elements' Text with "YOUR TURN" for Specified Message Duration
+Display Player Turn Prompt<br/>
+    Replace Empty Prompt Elements' Text with "YOUR TURN" for Specified Message Duration<br/>
 
-Check If Input is Correct
-    If Value of Player Sequence at Input Index in NOT Equal to Value of Computer Sequence at Input Index, Stop Play
+Check If Input is Correct<br/>
+    If Value of Player Sequence at Input Index in NOT Equal to Value of Computer Sequence at Input Index, Stop Play<br/>
 
-Stop Play 
-    Remove Event Listeners from Game Squares
-    Display Game Over Message for Specified Message Duration
-    Render
+Stop Play<br/>
+    Remove Event Listeners from Game Squares<br/>
+    Display Game Over Message for Specified Message Duration<br/>
+    Render<br/>
 
-Display Game Over Message
-    Replace Empty Prompt Block Text with "GAME OVER"
-    Remove + Add CSS Classes to Set Square Colors to Grey
+Display Game Over Message<br/>
+    Replace Empty Prompt Block Text with "GAME OVER"<br/>
+    Remove + Add CSS Classes to Set Square Colors to Grey<br/>
 
 
 
