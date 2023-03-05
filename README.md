@@ -9,11 +9,6 @@ When a player is ready to fully test their musical ear, they can select the "Pla
 
 # Wireframe
 ![Wireframe 1](https://i.imgur.com/4QzDQVX.png)
-![Wireframe 2](https://i.imgur.com/JwpZCHz.png)
-![Wireframe 3](https://i.imgur.com/aFkT1ic.png)
-![Wireframe 4](https://i.imgur.com/gN30SA2.png)
-![Wireframe 5](https://i.imgur.com/AQjWyjB.png)
-![Wireframe 6](https://i.imgur.com/hHxMvuY.png)
 
 # Pseudocode
 The following outline will be used to create the game. 
@@ -23,7 +18,7 @@ The 4 Chord Sounds<br/>
 Chord Display/ Sound Duration<br/>
 Message Duration<br/>
 
-<ins>Variables</ins><br/>
+<ins>State (Variables)</ins><br/>
 Computer Sequence of Chords<br/>
 Player Input Sequence<br/>
 Input Index<br/>
@@ -38,6 +33,16 @@ Buttons (Start Game and Game Modes)<br/>
 Your Score Element<br/>
 High Score Element<br/>
 Prompt Element<br/>
+
+<ins>Basic MVP Game Loop</ins><br/>
+After "Start Game" is clicked, a random chord will be added to the computer's sequence of chords. Then function calls will initiate an appropriate sound and color the corresponding square. In later rounds of gameplay, function calls will run for each value in the computer's sequence array. 
+
+During the player's turn, the correct game squares must be clicked in the same order as the computer's sequence. After each click, function calls will play the appropriate sound and display the appropriate color. A corresponding value will also be added to the player's sequence array, and a function will check whether the click was correct. This will stop once the lengths of the computer and player's arrays match or the player makes an incorrect guess. 
+
+Synchronous and asynchronous function timing will also be part of the gameplay to determine how long the sounds play and square colors display.
+
+<ins>More Detailed Functionality Below</ins></br>
+I went into much further detail to map out a coding plan for myself.
 
 <ins>Event Response</ins><br/>
 Event Listeners<br/>
@@ -59,7 +64,7 @@ Handle Game Square Click<br/>
 
 <ins>Functions</ins><br/>
 Initialize<br/>
-    - Your Score = 0<br/>
+    - Player Score = 0<br/>
     - Computer Sequence = []<br/>
     - Player Input Sequence = []<br/>
     - Input Index = 0<br/>
@@ -82,8 +87,8 @@ Render Squares<br/>
     - Remove + Add CSS Classes to Set Default Square Colors<br/>
 
 Render Results<br/>
-    - Add to Your Score if Player Inputs Correct Sequence<br/>
-    - Replace High Score if Player Inputs Wrong Sequence After a New High Score<br/>
+    - Set Your Score to Match Player Score Variable<br/>
+    - Set High Score to Match High Score Variable<br/>
 
 Start Computer Turn</br>
     - Get Computer Sequence<br/>
@@ -94,8 +99,8 @@ Get Computer Sequence<br/>
     - Add Random Chord Value to Computer Sequence<br/>
 
 Play Computer Sequence<br/>
-    - Use For Loop to Iterate Over Computer Sequence Array Length:<br/>
-        - Use Computer Sequence Chord Value at Index to Play Appropriate Sound for Specified Duration<br/>
+    - Iterate Over Computer Sequence Array Length:<br/>
+        - Use Each Computer Sequence Chord Value to Play Appropriate Sound for Specified Duration<br/>
         - If Game Mode = Normal<br/>
             Remove + Add CSS Classes to Corresponding Game Square to Depict Square Being Played for Specified Duration (Synchronous with Sound)<br/>
     - Display Player's Turn Prompt<br/>
@@ -107,6 +112,7 @@ Check If Input is Correct<br/>
     - If Value of Player Sequence at Input Index in NOT Equal to Value of Computer Sequence at Input Index, Game Over<br/>
 
 Game Over<br/>
+    - Replace High Score if Player Score is Higher
     - Remove Event Listeners from Game Squares<br/>
     - Display Game Over Message for Specified Message Duration<br/>
     - Render<br/>
