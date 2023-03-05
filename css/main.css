@@ -51,21 +51,33 @@ footer {
 }
 
 #ArrowUp {
+    background-color: #FA5252
+}
+
+#ArrowUp:hover {
     background-color: #F92020;
-    /* background-color: #FA5252 */
 }
 
 #ArrowRight {
+    background-color: #FBC037
+}
+
+#ArrowRight:hover {
     background-color: #FAB005;
-    /* background-color: #FBC037 */
 }
 
 #ArrowLeft {
     background-color: #228be6;
-    /* background-color: #1671BF; */
+}
+
+#ArrowLeft:hover {
+    background-color: #1671BF;
 }
 
 #ArrowDown {
     background-color: #40c057;
-    /* background-color: #339A45; */
+}
+
+#ArrowDown:hover {
+    background-color: #339A45;
 }
