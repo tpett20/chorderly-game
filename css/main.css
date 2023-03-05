@@ -26,6 +26,7 @@ h1 {
 div {
     height: 23vmin;
     width: 23vmin;
+    border-radius: 10px;
     background-color: lightblue;
     display: flex; 
     align-items: center;
@@ -47,4 +48,24 @@ input {
 
 footer {
     text-align: center;
+}
+
+#ArrowUp {
+    background-color: #F92020;
+    /* background-color: #FA5252 */
+}
+
+#ArrowRight {
+    background-color: #FAB005;
+    /* background-color: #FBC037 */
+}
+
+#ArrowLeft {
+    background-color: #228be6;
+    /* background-color: #1671BF; */
+}
+
+#ArrowDown {
+    background-color: #40c057;
+    /* background-color: #339A45; */
 }
