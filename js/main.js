@@ -3,7 +3,7 @@ console.log('JS Running')
 /*----- constants -----*/
 // The 4 Chord Sounds
 // Chord Display/ Sound Duration
-// Message Duration
+messageDuration = 1500
 
 /*----- State (Variables) -----*/
 let computerSequence
@@ -96,6 +96,7 @@ function startComputerTurn() {
     addToCompSequence()
     playComputerSequence()
     addSquareListeners()
+    playerTurnPrompt()
 }
 
 function removeSquareListeners() {
@@ -108,19 +109,28 @@ function addToCompSequence() {
 }
 
 function playComputerSequence() {
-    console.log(computerSequence[0])
-    setTimeout(() => {console.log(computerSequence[1])}, 1000)
-    setTimeout(() => {console.log(computerSequence[1])}, 2000)
+    computerSequence.forEach((chord, idx) => {
+        setTimeout(() => {
+            console.log(chord)
+        }, 1000 * idx)
+    })
 }
+
+function playerTurnPrompt() {
+    setTimeout(() => {
+        promptEl.innerHTML = `<p>Your Turn!</p>`
+        promptEl.style.visibility = 'visible'
+    }, 1000 * computerSequence.length)
+    setTimeout(() => {
+        render()
+    }, 1000 * computerSequence.length + messageDuration)
+}
+
 // Play Computer Sequence
 // - Iterate Over Computer Sequence Array Length:
 // - Use Each Computer Sequence Chord Value to Play Appropriate Sound for Specified Duration
 // - If Game Mode = Normal
 // Remove + Add CSS Classes to Corresponding Game Square to Depict Square Being Played for Specified Duration (Synchronous with Sound)
-// - Display Player's Turn Prompt
-
-// Display Player Turn Prompt
-// - Replace Empty Prompt Elements' Text with "YOUR TURN" for Specified Message Duration
 
 function addSquareListeners() {
     // squareEls.addEventListener('click', handleSquare)
