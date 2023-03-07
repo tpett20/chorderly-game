@@ -83,12 +83,20 @@ footer {
     background-color: #F92020;
 }
 
+#ArrowUp.playing {
+    background-color: purple;
+}
+
 #ArrowRight.available {
     background-color: #FBC037
 }
 
 #ArrowRight.available:hover {
     background-color: #FAB005;
+}
+
+#ArrowRight.playing {
+    background-color: purple;
 }
 
 #ArrowLeft.available {
@@ -99,6 +107,10 @@ footer {
     background-color: #1671BF;
 }
 
+#ArrowLeft.playing {
+    background-color: purple;
+}
+
 #ArrowDown.available {
     background-color: #40c057;
 }
@@ -107,6 +119,6 @@ footer {
     background-color: #339A45;
 }
 
-.playing {
+#ArrowDown.playing {
     background-color: purple;
 }

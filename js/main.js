@@ -2,10 +2,10 @@ console.log('JS Running')
 
 /*----- constants -----*/
 const chords = [
-    'ArrowUp',
-    'ArrowRight',
-    'ArrowLeft', 
-    'ArrowDown'
+    {direction: 'ArrowUp'},
+    {direction: 'ArrowRight'},
+    {direction: 'ArrowLeft'}, 
+    {direction: 'ArrowDown'}
 ]
 
 // Chord Display/ Sound Duration
@@ -49,7 +49,7 @@ function render() {
     renderGameMode()
     renderPrompt()
     renderSquares()
-    renderResults()
+    renderScores()
 }
 
 function renderGameMode() {
@@ -68,18 +68,19 @@ function renderGameMode() {
 function renderPrompt() {
     console.log('Render Prompt Running')
     promptEl.innerHTML = `<p>Prompt Section</p>`
-    promptEl.style.visibility = 'visible' // hidden
+    promptEl.style.visibility = 'hidden'
 }
 
 function renderSquares() {
     const squares = squareEls.querySelectorAll('div')
     squares.forEach(square => {
-        square.classList.remove('active')
+        square.classList.remove('playing')
+        // square.classList.remove('active')
         square.classList.add('available')
     })
 }
 
-function renderResults() {
+function renderScores() {
     yourScoreEl.innerHTML = `<p>Your Score: ${playerScore}</p>`
     highScoreEl.innerHTML = `<p>High Score: ${highScore}</p>`
 }
@@ -116,19 +117,26 @@ function addToCompSequence() {
 
 function playComputerSequence() {
     computerSequence.forEach((chordIdx, sequenceIdx) => {
-        const playingSquareId = chords[chordIdx]
-        const playingSquareEl = squareEls.querySelector(`#${playingSquareId}`)
-        console.log(playingSquareEl)
+        const playingSquareDirection = chords[chordIdx].direction
+        const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
         setTimeout(() => {
             highlightSquare(playingSquareEl)
+            setTimeout(() => {
+                unhighlightSquare(playingSquareEl)
+            }, 1000)
         }, 1000 * sequenceIdx)
     })
 }
 
-function highlightSquare(squareEl) {
-    squareEl.classList.remove('available')
-    squareEl.classList.add('playing')
-    console.log(squareEl)
+function highlightSquare(playingSquareEl) {
+    playingSquareEl.classList.add('playing')
+    console.log(playingSquareEl)
+
+}
+
+function unhighlightSquare(playingSquareEl) {
+    playingSquareEl.classList.remove('playing')
+    console.log(playingSquareEl)
 }
 
 function playerTurnPrompt() {
