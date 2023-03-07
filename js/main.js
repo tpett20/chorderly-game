@@ -23,6 +23,7 @@ const promptEl = document.querySelector('#prompt')
 
 /*----- Event Listeners -----*/
 gameModeEls.addEventListener('click', handleGameMode)
+startGameEl.addEventListener('click', handleStartGame)
 // squareEls.addEventListener('click', handleSquare)
 
 /*----- Functions -----*/
@@ -80,34 +81,37 @@ function renderResults() {
 function handleGameMode(evt) {
     if (evt.target.id === 'play-by-ear') {
         gameMode = 'Play By Ear'
-    } else {
+    } else if (evt.target.id === 'normal') {
         gameMode = 'Normal Mode'
     }
     render()
 }
 
-// Handle Game Mode Button Click
-// - Set Game Mode Based on Button ID
+function handleStartGame() {
+    startComputerTurn()
+}
 
-// Handle "Start Game" Button Click
-// - Start Computer Turn (see functions below)
+function startComputerTurn() {
+    removeSquareListeners()
+    addToCompSequence()
+    playComputerSequence()
+    addSquareListeners()
+}
 
-// Handle Game Square Click
-// - (Game Square Click Event Listeners are Added by the Start Computer Turn Function)
-// - Use Button ID to Add Corresponding Value to Player Input Sequence
-// - Check If Input is Correct (see functions below)
-// - Play Corresponding Sound for Specified Duration
-// - Remove + Add CSS Classes to Appropriate Game Square to Depict Appropriate Color for Specified Duration
-// - Compare Player and Computer Sequence Length
+function removeSquareListeners() {
+    // squareEls.removeEventListener('click', handleSquare)
+}
 
-// Start Computer Turn
-// - Get Computer Sequence
-// - Play Computer Sequence
-// - Add Event Listeners to Game Squares
+function addToCompSequence() {
+    let chordIdx = Math.floor(Math.random() * 4)
+    computerSequence.push(chordIdx)
+}
 
-// Get Computer Sequence
-// - Add Random Chord Value to Computer Sequence
-
+function playComputerSequence() {
+    console.log(computerSequence[0])
+    setTimeout(() => {console.log(computerSequence[1])}, 1000)
+    setTimeout(() => {console.log(computerSequence[1])}, 2000)
+}
 // Play Computer Sequence
 // - Iterate Over Computer Sequence Array Length:
 // - Use Each Computer Sequence Chord Value to Play Appropriate Sound for Specified Duration
@@ -117,6 +121,20 @@ function handleGameMode(evt) {
 
 // Display Player Turn Prompt
 // - Replace Empty Prompt Elements' Text with "YOUR TURN" for Specified Message Duration
+
+function addSquareListeners() {
+    // squareEls.addEventListener('click', handleSquare)
+}
+
+// Handle Game Square Click
+// - (Game Square Click Event Listeners are Added by the Start Computer Turn Function)
+// - Use Button ID to Add Corresponding Value to Player Input Sequence
+// - Check If Input is Correct (see functions below)
+// - Play Corresponding Sound for Specified Duration
+// - Remove + Add CSS Classes to Appropriate Game Square to Depict Appropriate Color for Specified Duration
+// - Compare Player and Computer Sequence Length
+
+
 
 // Check If Input is Correct
 // - If Value of Player Sequence at Input Index in NOT Equal to Value of Computer Sequence at Input Index, Game Over
