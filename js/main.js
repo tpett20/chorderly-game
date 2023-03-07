@@ -11,7 +11,7 @@ let playerSequence
 let inputIdx
 let gameMode = 'Normal Mode'
 let playerScore
-let highScore
+let highScore = 0
 
 /*----- Cached DOM Elements -----*/
 const squareEls = document.querySelector('#game-squares')
@@ -42,8 +42,8 @@ function render() {
     console.log('Render Function Running')
     renderGameMode()
     renderPrompt()
-    // renderSquares()
-    // renderResults()
+    renderSquares()
+    renderResults()
 }
 
 function renderGameMode() {
@@ -63,12 +63,18 @@ function renderPrompt() {
     promptEl.style.visibility = 'visible' // hidden
 }
 
-// Render Squares
-// - Remove + Add CSS Classes to Set Default Square Colors
+function renderSquares() {
+    const squares = squareEls.querySelectorAll('div')
+    squares.forEach(square => {
+        square.classList.remove('active')
+        square.classList.add('available')
+    })
+}
 
-// Render Results
-// - Set Your Score to Match Player Score Variable
-// - Set High Score to Match High Score Variable
+function renderResults() {
+    yourScoreEl.innerHTML = `<p>Your Score: ${playerScore}</p>`
+    highScoreEl.innerHTML = `<p>High Score: ${highScore}</p>`
+}
 
 // Handle Game Mode Button Click
 // - Set Game Mode Based on Button ID

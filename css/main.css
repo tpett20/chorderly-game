@@ -74,34 +74,34 @@ footer {
     text-align: center;
 }
 
-#ArrowUp {
+#ArrowUp.available {
     background-color: #FA5252
 }
 
-#ArrowUp:hover {
+#ArrowUp.available:hover {
     background-color: #F92020;
 }
 
-#ArrowRight {
+#ArrowRight.available {
     background-color: #FBC037
 }
 
-#ArrowRight:hover {
+#ArrowRight.available:hover {
     background-color: #FAB005;
 }
 
-#ArrowLeft {
+#ArrowLeft.available {
     background-color: #228be6;
 }
 
-#ArrowLeft:hover {
+#ArrowLeft.available:hover {
     background-color: #1671BF;
 }
 
-#ArrowDown {
+#ArrowDown.available {
     background-color: #40c057;
 }
 
-#ArrowDown:hover {
+#ArrowDown.available:hover {
     background-color: #339A45;
 }
