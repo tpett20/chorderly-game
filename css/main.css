@@ -50,6 +50,7 @@ h1 {
 
 .square > p {
     rotate: -45deg;
+    font-size: 2.5em;
 }
 
 #game-modes {
@@ -104,4 +105,8 @@ footer {
 
 #ArrowDown.available:hover {
     background-color: #339A45;
+}
+
+.playing {
+    background-color: purple;
 }

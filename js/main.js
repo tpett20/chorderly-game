@@ -1,7 +1,13 @@
 console.log('JS Running')
 
 /*----- constants -----*/
-// The 4 Chord Sounds
+const chords = [
+    'ArrowUp',
+    'ArrowRight',
+    'ArrowLeft', 
+    'ArrowDown'
+]
+
 // Chord Display/ Sound Duration
 messageDuration = 1500
 
@@ -109,11 +115,20 @@ function addToCompSequence() {
 }
 
 function playComputerSequence() {
-    computerSequence.forEach((chord, idx) => {
+    computerSequence.forEach((chordIdx, sequenceIdx) => {
+        const playingSquareId = chords[chordIdx]
+        const playingSquareEl = squareEls.querySelector(`#${playingSquareId}`)
+        console.log(playingSquareEl)
         setTimeout(() => {
-            console.log(chord)
-        }, 1000 * idx)
+            highlightSquare(playingSquareEl)
+        }, 1000 * sequenceIdx)
     })
+}
+
+function highlightSquare(squareEl) {
+    squareEl.classList.remove('available')
+    squareEl.classList.add('playing')
+    console.log(squareEl)
 }
 
 function playerTurnPrompt() {
