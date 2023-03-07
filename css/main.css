@@ -28,7 +28,7 @@ h1 {
     font-size: 1.5em;
 }
 
-#gameboard {
+#game-squares {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
