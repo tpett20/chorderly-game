@@ -15,15 +15,14 @@ let highScore = 0
 
 /*----- Cached DOM Elements -----*/
 const squareEls = document.querySelector('#game-squares')
-const normalModeEl = document.querySelector('#normal')
-const playByEarEl = document.querySelector('#play-by-ear')
+const gameModeEls = document.querySelector('#game-modes')
 const startGameEl = document.querySelector('#start-game')
 const yourScoreEl = document.querySelector('#your-score')
 const highScoreEl = document.querySelector('#high-score')
 const promptEl = document.querySelector('#prompt')
 
 /*----- Event Listeners -----*/
-// buttonEls.addEventListener('click', handleBtn)
+gameModeEls.addEventListener('click', handleGameMode)
 // squareEls.addEventListener('click', handleSquare)
 
 /*----- Functions -----*/
@@ -48,12 +47,14 @@ function render() {
 
 function renderGameMode() {
     console.log('Render Game Mode Running')
-    if (gameMode === 'Normal Mode') {
-        normalModeEl.textContent = `☑︎ ${gameMode}`
-        playByEarEl.textContent = `☐ Play By Ear`
+    const normalBtn = gameModeEls.querySelector('#normal')
+    const playByEarBtn = gameModeEls.querySelector('#play-by-ear')
+    if (gameMode === 'Play By Ear') {
+        normalBtn.textContent = `☐ Normal Mode`
+        playByEarBtn.textContent = `☑︎ ${gameMode}`
     } else {
-        normalModeEl.textContent = `☐ Normal Mode`
-        playByEarEl.textContent = `☑︎ ${gameMode}`
+        normalBtn.textContent = `☑︎ ${gameMode}`
+        playByEarBtn.textContent = `☐ Play By Ear`
     }
 }
 
@@ -74,6 +75,15 @@ function renderSquares() {
 function renderResults() {
     yourScoreEl.innerHTML = `<p>Your Score: ${playerScore}</p>`
     highScoreEl.innerHTML = `<p>High Score: ${highScore}</p>`
+}
+
+function handleGameMode(evt) {
+    if (evt.target.id === 'play-by-ear') {
+        gameMode = 'Play By Ear'
+    } else {
+        gameMode = 'Normal Mode'
+    }
+    render()
 }
 
 // Handle Game Mode Button Click
