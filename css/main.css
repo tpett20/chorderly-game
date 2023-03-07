@@ -10,8 +10,14 @@ html {
 
 h1 {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 0;
     font-size: 2em;
+}
+
+#prompt {
+    text-align: center;
+    font-size: 1.75em;
+    /* visibility: hidden; */
 }
 
 #scores {
@@ -22,7 +28,7 @@ h1 {
     font-size: 1.5em;
 }
 
-#board {
+#gameboard {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -58,7 +64,7 @@ h1 {
     font-size: 1.25em
 }
 
-input {
+#start-game {
     display: block; 
     margin: 0 auto; 
     font-size: 1.25em;
