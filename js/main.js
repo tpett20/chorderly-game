@@ -47,7 +47,7 @@ const promptEl = document.querySelector('#prompt')
 /*----- Event Listeners -----*/
 gameModeEls.addEventListener('click', handleGameMode)
 startGameEl.addEventListener('click', handleStartGame)
-// squareEls.addEventListener('click', handleSquare)
+squareEls.addEventListener('click', handleInactiveSquare)
 
 /*----- Functions -----*/
 init()
@@ -135,7 +135,6 @@ function playComputerSequence() {
         setTimeout(() => {
             highlightSquare(playingSquareEl)
             chords[chordIdx].sound.play()
-            console.log(chords[chordIdx].sound)
             setTimeout(() => {
                 unhighlightSquare(playingSquareEl)
             }, displayDuration)
@@ -145,13 +144,12 @@ function playComputerSequence() {
 
 function highlightSquare(playingSquareEl) {
     playingSquareEl.classList.add('playing')
-    console.log(playingSquareEl)
-
+    // console.log(playingSquareEl)
 }
 
 function unhighlightSquare(playingSquareEl) {
     playingSquareEl.classList.remove('playing')
-    console.log(playingSquareEl)
+    // console.log(playingSquareEl)
 }
 
 function playerTurnPrompt() {
@@ -172,6 +170,21 @@ function playerTurnPrompt() {
 
 function addSquareListeners() {
     // squareEls.addEventListener('click', handleSquare)
+}
+
+function handleInactiveSquare(evt) {
+    if (evt.target.tagName !== 'DIV') return
+    const playingSquareDirection = evt.target.id
+    const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
+    chords.forEach(chord => {
+        if (chord.direction === playingSquareDirection) {
+            chord.sound.play()
+        }
+    })
+    highlightSquare(playingSquareEl)
+    setTimeout(() => {
+        unhighlightSquare(playingSquareEl)
+    }, displayDuration)
 }
 
 // Handle Game Square Click

@@ -95,6 +95,11 @@ footer {
     transition: var(--transition-time); 
 }
 
+#ArrowUp.playing:hover {
+    background-color: purple;
+    transition: var(--transition-time); 
+}
+
 #ArrowRight.available {
     background-color: #FBC037;
     transition: 0.3s; 
@@ -106,6 +111,11 @@ footer {
 }
 
 #ArrowRight.playing {
+    background-color: purple;
+    transition: var(--transition-time); 
+}
+
+#ArrowRight.playing:hover {
     background-color: purple;
     transition: var(--transition-time); 
 }
@@ -125,6 +135,11 @@ footer {
     transition: var(--transition-time); 
 }
 
+#ArrowLeft.playing:hover {
+    background-color: purple;
+    transition: var(--transition-time); 
+}
+
 #ArrowDown.available {
     background-color: #40c057;
     transition: var(--transition-time); 
@@ -136,6 +151,11 @@ footer {
 }
 
 #ArrowDown.playing {
+    background-color: purple;
+    transition: var(--transition-time); 
+}
+
+#ArrowDown.playing:hover {
     background-color: purple;
     transition: var(--transition-time); 
 }
