@@ -190,6 +190,12 @@ function handleSquareDisplay(evt) {
 }
 
 function handleSquareEffect(evt) {
+    addToPlayerSequence(evt)
+    checkPlayerInput()
+    compareSequenceLengths()
+}
+
+function addToPlayerSequence(evt) {
     if (evt.target.tagName !== 'DIV') return
     chords.forEach(chord => {
         if (chord.direction === evt.target.id) {
@@ -199,27 +205,36 @@ function handleSquareEffect(evt) {
     })
 }
 
-// Handle Game Square Click
-// - (Game Square Click Event Listeners are Added by the Start Computer Turn Function)
-// - Use Button ID to Add Corresponding Value to Player Input Sequence
-// - Check If Input is Correct (see functions below)
-// - Play Corresponding Sound for Specified Duration
-// - Remove + Add CSS Classes to Appropriate Game Square to Depict Appropriate Color for Specified Duration
-// - Compare Player and Computer Sequence Length
+function checkPlayerInput() {
+    if (playerSequence[inputIdx] !== computerSequence[inputIdx]) {
+        gameOver()
+    }
+}
 
+function gameOver() {
+    console.log('Game Over')
+}
 
+function compareSequenceLengths() {
+    if (playerSequence.length !== computerSequence.length) {
+        inputIdx ++
+    } else {
+        playerScore ++
+        playerSequence = []
+        computerTurnPrompt()
+    }
+}
 
-// Check If Input is Correct
-// - If Value of Player Sequence at Input Index in NOT Equal to Value of Computer Sequence at Input Index, Game Over
-
-// Game Over
-// - Replace High Score if Player Score is Higher - Remove Event Listeners from Game Squares
-// - Display Game Over Message for Specified Message Duration
-// - Render
-
-// Display Game Over Message
-// - Replace Empty Prompt Block Text with "GAME OVER"
-// - Remove + Add CSS Classes to Set Square Colors to Grey
+function computerTurnPrompt() {
+    setTimeout(() => {
+        promptEl.innerHTML = `<p>Nice! Listen Up Again!</p>`
+        promptEl.style.visibility = 'visible'
+    }, messageDuration / 2)
+    setTimeout(() => {
+        render()
+        startComputerTurn()
+    }, messageDuration * 2)
+}
 
 // Compare Player and Computer Sequence Length
 // - If Player Input Sequence DOES NOT Equal Computer Sequence Length:
@@ -229,3 +244,23 @@ function handleSquareEffect(evt) {
 // - Player Input Sequence = []
 // - Render
 // - Start Computer Turn
+
+// Check If Input is Correct
+// - If Value of Player Sequence at Input Index in NOT Equal to Value of Computer Sequence at Input Index, Game Over
+
+// Handle Game Square Click
+// - (Game Square Click Event Listeners are Added by the Start Computer Turn Function)
+// - Use Button ID to Add Corresponding Value to Player Input Sequence
+// - Check If Input is Correct (see functions below)
+// - Play Corresponding Sound for Specified Duration
+// - Remove + Add CSS Classes to Appropriate Game Square to Depict Appropriate Color for Specified Duration
+// - Compare Player and Computer Sequence Length
+
+// Game Over
+// - Replace High Score if Player Score is Higher - Remove Event Listeners from Game Squares
+// - Display Game Over Message for Specified Message Duration
+// - Render
+
+// Display Game Over Message
+// - Replace Empty Prompt Block Text with "GAME OVER"
+// - Remove + Add CSS Classes to Set Square Colors to Grey
