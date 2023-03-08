@@ -53,7 +53,6 @@ startGameEl.addEventListener('click', handleStartGame)
 init()
 
 function init() {
-    console.log('Initialize Function Running')
     playerScore = 0
     computerSequence = []
     playerSequence = []
@@ -62,7 +61,6 @@ function init() {
 }
 
 function render() {
-    console.log('Render Function Running')
     renderGameMode()
     renderPrompt()
     renderSquares()
@@ -70,7 +68,6 @@ function render() {
 }
 
 function renderGameMode() {
-    console.log('Render Game Mode Running')
     const normalBtn = gameModeEls.querySelector('#normal')
     const playByEarBtn = gameModeEls.querySelector('#play-by-ear')
     if (gameMode === 'Play By Ear') {
@@ -83,7 +80,6 @@ function renderGameMode() {
 }
 
 function renderPrompt() {
-    console.log('Render Prompt Running')
     promptEl.innerHTML = `<p>Prompt Section</p>`
     promptEl.style.visibility = 'hidden'
 }
@@ -124,8 +120,6 @@ function startComputerTurn() {
 }
 
 function removeSquareListeners() {
-    cMajor.play()
-    console.dir(cMajor)
     // squareEls.removeEventListener('click', handleSquare)
 }
 
@@ -141,7 +135,7 @@ function playComputerSequence() {
         setTimeout(() => {
             highlightSquare(playingSquareEl)
             chords[chordIdx].sound.play()
-            console.log(chordIdx, chords[chordIdx].sound.currentTime)
+            console.log(chords[chordIdx].sound)
             setTimeout(() => {
                 unhighlightSquare(playingSquareEl)
             }, displayDuration)
