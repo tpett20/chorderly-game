@@ -208,7 +208,7 @@ function addToPlayerSequence(evt) {
 function checkPlayerInput() {
     if (playerSequence[inputIdx] !== computerSequence[inputIdx]) {
         gameOver()
-    }
+    } 
 }
 
 function gameOver() {
@@ -217,10 +217,11 @@ function gameOver() {
 
 function compareSequenceLengths() {
     if (playerSequence.length !== computerSequence.length) {
-        inputIdx ++
+        inputIdx += 1
     } else {
         playerScore ++
         playerSequence = []
+        inputIdx = 0
         computerTurnPrompt()
     }
 }
@@ -229,6 +230,7 @@ function computerTurnPrompt() {
     setTimeout(() => {
         promptEl.innerHTML = `<p>Nice! Listen Up Again!</p>`
         promptEl.style.visibility = 'visible'
+        renderScores()
     }, messageDuration / 2)
     setTimeout(() => {
         render()
