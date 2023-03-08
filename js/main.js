@@ -8,7 +8,7 @@ const chords = [
     {direction: 'ArrowDown'}
 ]
 
-// Chord Display/ Sound Duration
+displayDuration = 900
 messageDuration = 1500
 
 /*----- State (Variables) -----*/
@@ -38,7 +38,7 @@ init()
 function init() {
     console.log('Initialize Function Running')
     playerScore = 0
-    computerSequence = []
+    computerSequence = [1, 1, 1, 1]
     playerSequence = []
     inputIdx = 0
     render()
@@ -123,7 +123,7 @@ function playComputerSequence() {
             highlightSquare(playingSquareEl)
             setTimeout(() => {
                 unhighlightSquare(playingSquareEl)
-            }, 1000)
+            }, displayDuration)
         }, 1000 * sequenceIdx)
     })
 }
