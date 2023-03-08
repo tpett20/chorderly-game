@@ -59,7 +59,7 @@ init()
 
 function init() {
     playerScore = 0
-    computerSequence = [0,1,2,3]
+    computerSequence = []
     playerSequence = []
     inputIdx = 0
     render()
@@ -113,10 +113,10 @@ function handleGameMode(evt) {
 }
 
 function handleStartGame() {
-    startComputerTurn()
+    runComputerTurn()
 }
 
-function startComputerTurn() {
+function runComputerTurn() {
     removeSquareListeners()
     addToCompSequence()
     playComputerSequence()
@@ -125,7 +125,7 @@ function startComputerTurn() {
 }
 
 function removeSquareListeners() {
-    // squareEls.removeEventListener('click', handleSquare)
+    squareEls.removeEventListener('click', handleSquareDisplay)
 }
 
 function addToCompSequence() {
@@ -137,24 +137,28 @@ function playComputerSequence() {
     computerSequence.forEach((chordIdx, sequenceIdx) => {
         const playingSquareDirection = chords[chordIdx].direction
         const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
-        setTimeout(() => {
-            highlightSquare(playingSquareEl)
-            chords[chordIdx].sound.play()
+        if (gameMode === 'Normal Mode') {
             setTimeout(() => {
-                unhighlightSquare(playingSquareEl)
-            }, displayDuration)
-        }, 1000 * sequenceIdx)
+                chords[chordIdx].sound.play()
+                highlightSquare(playingSquareEl)
+                setTimeout(() => {
+                    unhighlightSquare(playingSquareEl)
+                }, displayDuration)
+            }, 1000 * sequenceIdx)
+        } else {
+            setTimeout(() => {
+                chords[chordIdx].sound.play()
+            }, 1000 * sequenceIdx)
+        }
     })
 }
 
 function highlightSquare(playingSquareEl) {
     playingSquareEl.classList.add('playing')
-    // console.log(playingSquareEl)
 }
 
 function unhighlightSquare(playingSquareEl) {
     playingSquareEl.classList.remove('playing')
-    // console.log(playingSquareEl)
 }
 
 function playerTurnPrompt() {
@@ -167,15 +171,13 @@ function playerTurnPrompt() {
     }, 1000 * computerSequence.length + messageDuration)
 }
 
-// Play Computer Sequence
-// - Iterate Over Computer Sequence Array Length:
-// - Use Each Computer Sequence Chord Value to Play Appropriate Sound for Specified Duration
 // - If Game Mode = Normal
 // Remove + Add CSS Classes to Corresponding Game Square to Depict Square Being Played for Specified Duration (Synchronous with Sound)
 
 function addSquareListeners() {
     setTimeout(() => {
         squareEls.addEventListener('click', handleSquareEffect)
+        squareEls.addEventListener('click', handleSquareDisplay)
     }, 1000 * computerSequence.length)
 }
 
@@ -234,19 +236,24 @@ function computerTurnPrompt() {
     }, messageDuration / 2)
     setTimeout(() => {
         render()
-        startComputerTurn()
+        runComputerTurn()
     }, messageDuration * 2)
 }
 
 function gameOver() {
     if (playerScore > highScore) highScore = playerScore
     replaceChordSound()
+    removeSquareEffectListener()
     gameOverMessage()
 }
 
 function replaceChordSound() {
     clearTimeout(chordPlay)
     uglyChord.play()
+}
+
+function removeSquareEffectListener() {
+    squareEls.removeEventListener('click', handleSquareEffect)
 }
 
 function gameOverMessage() {

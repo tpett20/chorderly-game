@@ -22,7 +22,14 @@ h1 {
 #prompt {
     text-align: center;
     font-size: 1.75em;
-    /* visibility: hidden; */
+}
+
+#prompt > p {
+    width: 25%; 
+    margin: 0.5em auto; 
+    padding: 0.5em; 
+    border-radius: 10px;
+    background-color: #fd7e14; 
 }
 
 #scores {
@@ -55,7 +62,7 @@ h1 {
 
 .square > p {
     rotate: -45deg;
-    font-size: 2.5em;
+    font-size: 4em;
 }
 
 #game-modes {
