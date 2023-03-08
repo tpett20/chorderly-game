@@ -47,7 +47,7 @@ const promptEl = document.querySelector('#prompt')
 /*----- Event Listeners -----*/
 gameModeEls.addEventListener('click', handleGameMode)
 startGameEl.addEventListener('click', handleStartGame)
-squareEls.addEventListener('click', handleInactiveSquare)
+squareEls.addEventListener('click', handleSquareDisplay)
 
 /*----- Functions -----*/
 init()
@@ -115,8 +115,8 @@ function startComputerTurn() {
     removeSquareListeners()
     addToCompSequence()
     playComputerSequence()
-    addSquareListeners()
     playerTurnPrompt()
+    addSquareListeners()
 }
 
 function removeSquareListeners() {
@@ -169,10 +169,12 @@ function playerTurnPrompt() {
 // Remove + Add CSS Classes to Corresponding Game Square to Depict Square Being Played for Specified Duration (Synchronous with Sound)
 
 function addSquareListeners() {
-    // squareEls.addEventListener('click', handleSquare)
+    setTimeout(() => {
+        squareEls.addEventListener('click', handleSquareEffect)
+    }, 1000 * computerSequence.length)
 }
 
-function handleInactiveSquare(evt) {
+function handleSquareDisplay(evt) {
     if (evt.target.tagName !== 'DIV') return
     const playingSquareDirection = evt.target.id
     const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
@@ -185,6 +187,16 @@ function handleInactiveSquare(evt) {
     setTimeout(() => {
         unhighlightSquare(playingSquareEl)
     }, displayDuration)
+}
+
+function handleSquareEffect(evt) {
+    if (evt.target.tagName !== 'DIV') return
+    chords.forEach(chord => {
+        if (chord.direction === evt.target.id) {
+            const chordIdx = chords.indexOf(chord)
+            playerSequence.push(chordIdx)
+        }
+    })
 }
 
 // Handle Game Square Click
