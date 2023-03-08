@@ -18,6 +18,10 @@ const fMajor = document.createElement('audio')
 fMajor.src = 'sounds/F-Maj-GP-0.8s.m4a'
 fMajor.volume = 0.5
 
+const uglyChord = document.createElement('audio')
+uglyChord.src = 'sounds/Ugly-Chord-GP-1.6s.m4a'
+uglyChord.volume = 0.75
+
 const chords = [
     {direction: 'ArrowUp', sound: cMajor},
     {direction: 'ArrowRight', sound: gMajor},
@@ -35,6 +39,7 @@ let inputIdx
 let gameMode = 'Normal Mode'
 let playerScore
 let highScore = 0
+let chordPlay
 
 /*----- Cached DOM Elements -----*/
 const squareEls = document.querySelector('#game-squares')
@@ -54,7 +59,7 @@ init()
 
 function init() {
     playerScore = 0
-    computerSequence = []
+    computerSequence = [0,1,2,3]
     playerSequence = []
     inputIdx = 0
     render()
@@ -180,7 +185,7 @@ function handleSquareDisplay(evt) {
     const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
     chords.forEach(chord => {
         if (chord.direction === playingSquareDirection) {
-            chord.sound.play()
+            chordPlay = setTimeout(() => {chord.sound.play()}, 10)
         }
     })
     highlightSquare(playingSquareEl)
@@ -192,7 +197,6 @@ function handleSquareDisplay(evt) {
 function handleSquareEffect(evt) {
     addToPlayerSequence(evt)
     checkPlayerInput()
-    compareSequenceLengths()
 }
 
 function addToPlayerSequence(evt) {
@@ -206,13 +210,9 @@ function addToPlayerSequence(evt) {
 }
 
 function checkPlayerInput() {
-    if (playerSequence[inputIdx] !== computerSequence[inputIdx]) {
-        gameOver()
-    } 
-}
-
-function gameOver() {
-    console.log('Game Over')
+    if (playerSequence[inputIdx] === computerSequence[inputIdx]) {
+        compareSequenceLengths()
+    } else gameOver()
 }
 
 function compareSequenceLengths() {
@@ -238,31 +238,22 @@ function computerTurnPrompt() {
     }, messageDuration * 2)
 }
 
-// Compare Player and Computer Sequence Length
-// - If Player Input Sequence DOES NOT Equal Computer Sequence Length:
-// - Input Index + 1
-// - If Player Input Sequence Length Equals Computer Sequence Length:
-// - Player Score + 1
-// - Player Input Sequence = []
-// - Render
-// - Start Computer Turn
+function gameOver() {
+    if (playerScore > highScore) highScore = playerScore
+    replaceChordSound()
+    gameOverMessage()
+}
 
-// Check If Input is Correct
-// - If Value of Player Sequence at Input Index in NOT Equal to Value of Computer Sequence at Input Index, Game Over
+function replaceChordSound() {
+    clearTimeout(chordPlay)
+    uglyChord.play()
+}
 
-// Handle Game Square Click
-// - (Game Square Click Event Listeners are Added by the Start Computer Turn Function)
-// - Use Button ID to Add Corresponding Value to Player Input Sequence
-// - Check If Input is Correct (see functions below)
-// - Play Corresponding Sound for Specified Duration
-// - Remove + Add CSS Classes to Appropriate Game Square to Depict Appropriate Color for Specified Duration
-// - Compare Player and Computer Sequence Length
-
-// Game Over
-// - Replace High Score if Player Score is Higher - Remove Event Listeners from Game Squares
-// - Display Game Over Message for Specified Message Duration
-// - Render
-
-// Display Game Over Message
-// - Replace Empty Prompt Block Text with "GAME OVER"
-// - Remove + Add CSS Classes to Set Square Colors to Grey
+function gameOverMessage() {
+    promptEl.innerHTML = `<p>Oops.. GAME OVER!</p>`
+    promptEl.style.visibility = 'visible'
+    renderScores()
+    setTimeout(() => {
+        init()
+    }, messageDuration * 2)
+}
