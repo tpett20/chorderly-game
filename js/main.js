@@ -1,11 +1,28 @@
 console.log('JS Running')
 
 /*----- constants -----*/
+
+const cMajor = document.createElement('audio')
+cMajor.src = 'sounds/C-Maj-GP-0.8s.m4a'
+cMajor.volume = 0.5
+
+const gMajor = document.createElement('audio')
+gMajor.src = 'sounds/G-Maj-GP-0.8s.m4a'
+gMajor.volume = 0.5
+
+const aMinor = document.createElement('audio')
+aMinor.src = 'sounds/A-Min-GP-0.8s.m4a'
+aMinor.volume = 0.5
+
+const fMajor = document.createElement('audio')
+fMajor.src = 'sounds/F-Maj-GP-0.8s.m4a'
+fMajor.volume = 0.5
+
 const chords = [
-    {direction: 'ArrowUp'},
-    {direction: 'ArrowRight'},
-    {direction: 'ArrowLeft'}, 
-    {direction: 'ArrowDown'}
+    {direction: 'ArrowUp', sound: cMajor},
+    {direction: 'ArrowRight', sound: gMajor},
+    {direction: 'ArrowLeft', sound: fMajor}, 
+    {direction: 'ArrowDown', sound: aMinor}
 ]
 
 displayDuration = 900
@@ -38,7 +55,7 @@ init()
 function init() {
     console.log('Initialize Function Running')
     playerScore = 0
-    computerSequence = [1, 1, 1, 1]
+    computerSequence = []
     playerSequence = []
     inputIdx = 0
     render()
@@ -107,6 +124,8 @@ function startComputerTurn() {
 }
 
 function removeSquareListeners() {
+    cMajor.play()
+    console.dir(cMajor)
     // squareEls.removeEventListener('click', handleSquare)
 }
 
@@ -121,6 +140,8 @@ function playComputerSequence() {
         const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
         setTimeout(() => {
             highlightSquare(playingSquareEl)
+            chords[chordIdx].sound.play()
+            console.log(chordIdx, chords[chordIdx].sound.currentTime)
             setTimeout(() => {
                 unhighlightSquare(playingSquareEl)
             }, displayDuration)

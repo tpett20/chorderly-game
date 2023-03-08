@@ -10,3 +10,5 @@ const cMajor = new Chord('ArrowUp', 0)
 const gMajor = new Chord('ArrowRight', 1)
 const fMajor = new Chord('ArrowLeft', 2)
 const aMinor = new Chord('ArrowDown', 3)
+
+const cMajor = new Audio('sounds/C-Major-GrandPiano.m4a')
