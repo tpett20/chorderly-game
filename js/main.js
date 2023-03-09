@@ -1,5 +1,3 @@
-console.log('JS Running')
-
 /*----- constants -----*/
 
 const cMajor = document.createElement('audio')
@@ -30,7 +28,7 @@ const chords = [
 ]
 
 displayDuration = 900
-messageDuration = 1500
+messageDuration = 1250
 
 /*----- State (Variables) -----*/
 let computerSequence
@@ -103,8 +101,13 @@ function handleGameMode(evt) {
 }
 
 function handleStartGame() {
-    init()
+    removeButtons()
     runComputerTurn()
+}
+
+function removeButtons() {
+    startGameEl.style.visibility = 'hidden'
+    gameModeEls.style.visibility = 'hidden'
 }
 
 function runComputerTurn() {
@@ -171,7 +174,6 @@ function addSquareListeners() {
 
 function handleSquareDisplay(evt) {
     let playingSquareDirection
-    console.dir(evt.target)
     if (evt.target.tagName === 'SECTION' || evt.target.id === 'prompt') {
         return
     } else if (evt.target.tagName === 'P') {
@@ -265,5 +267,11 @@ function gameOverMessage() {
     renderScores()
     setTimeout(() => {
         init()
+        addButtons()
     }, messageDuration * 2)
+}
+
+function addButtons() {
+    startGameEl.style.visibility = 'visible'
+    gameModeEls.style.visibility = 'visible'
 }
