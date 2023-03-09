@@ -68,7 +68,6 @@ function init() {
 function render() {
     renderGameMode()
     renderPrompt()
-    renderSquares()
     renderScores()
 }
 
@@ -87,14 +86,6 @@ function renderGameMode() {
 function renderPrompt() {
     promptEl.innerHTML = `<p>Prompt Section</p>`
     promptEl.style.visibility = 'hidden'
-}
-
-function renderSquares() {
-    const squares = squareEls.querySelectorAll('.square')
-    squares.forEach(square => {
-        square.classList.remove('playing')
-        square.classList.add('available')
-    })
 }
 
 function renderScores() {
