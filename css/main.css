@@ -100,13 +100,11 @@ footer {
 }
 
 #ArrowUp.playing {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #F92020 60%, #F92020 100%);
 }
 
 #ArrowUp.playing:hover {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #F92020 60%, #F92020 100%);
 }
 
 #ArrowRight.available {
@@ -120,13 +118,11 @@ footer {
 }
 
 #ArrowRight.playing {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #FAB005 60%, #FAB005 100%);
 }
 
 #ArrowRight.playing:hover {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #FAB005 60%, #FAB005 100%);
 }
 
 #ArrowLeft.available {
@@ -140,13 +136,11 @@ footer {
 }
 
 #ArrowLeft.playing {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #1671BF 60%, #1671BF 100%);
 }
 
 #ArrowLeft.playing:hover {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #1671BF 60%, #1671BF 100%);
 }
 
 #ArrowDown.available {
@@ -160,11 +154,9 @@ footer {
 }
 
 #ArrowDown.playing {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #339A45 60%, #339A45 100%);
 }
 
 #ArrowDown.playing:hover {
-    background-color: purple;
-    transition: var(--transition-time); 
+    background-image: radial-gradient(yellow 0, #339A45 60%, #339A45 100%);
 }
