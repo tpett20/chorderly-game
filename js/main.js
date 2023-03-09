@@ -113,6 +113,7 @@ function handleGameMode(evt) {
 }
 
 function handleStartGame() {
+    init()
     runComputerTurn()
 }
 
