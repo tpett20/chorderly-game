@@ -20,13 +20,15 @@ h1 {
 }
 
 #prompt {
+    position: absolute; 
     text-align: center;
-    font-size: 1.75em;
+    font-size: 2em;
+    rotate: -45deg;
+    z-index: 1; 
 }
 
 #prompt > p {
-    width: 25%; 
-    margin: 0.5em auto; 
+    width: 29vmin; 
     padding: 0.5em; 
     border-radius: 10px;
     background-color: #fd7e14; 
@@ -40,7 +42,7 @@ h1 {
     font-size: 1.5em;
 }
 
-#game-squares {
+#game-board {
     display: flex;
     flex-wrap: wrap;
     align-items: center;

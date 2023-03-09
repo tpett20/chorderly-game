@@ -42,7 +42,7 @@ let highScore = 0
 let chordPlay
 
 /*----- Cached DOM Elements -----*/
-const squareEls = document.querySelector('#game-squares')
+const squareEls = document.querySelector('#game-board')
 const gameModeEls = document.querySelector('#game-modes')
 const startGameEl = document.querySelector('#start-game')
 const yourScoreEl = document.querySelector('#your-score')
@@ -183,6 +183,7 @@ function addSquareListeners() {
 }
 
 function handleSquareDisplay(evt) {
+    console.log(evt.target)
     if (evt.target.tagName !== 'DIV') return
     const playingSquareDirection = evt.target.id
     const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
