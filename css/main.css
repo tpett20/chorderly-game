@@ -94,17 +94,17 @@ footer {
     transition: var(--transition-time); 
 }
 
-#ArrowUp.available:hover {
+/* #ArrowUp.available:hover {
     background-color: #F92020;
     transition: var(--transition-time); 
-}
+} */
 
 #ArrowUp.playing {
-    background-image: radial-gradient(yellow 0, #F92020 60%, #F92020 100%);
+    background-image: radial-gradient(yellow 0, #FA5252 60%, #FA5252 100%);
 }
 
 #ArrowUp.playing:hover {
-    background-image: radial-gradient(yellow 0, #F92020 60%, #F92020 100%);
+    background-image: radial-gradient(yellow 0, #FA5252 60%, #FA5252 100%);
 }
 
 #ArrowRight.available {
@@ -112,17 +112,17 @@ footer {
     transition: 0.3s; 
 }
 
-#ArrowRight.available:hover {
+/* #ArrowRight.available:hover {
     background-color: #FAB005;
     transition: var(--transition-time); 
-}
+} */
 
 #ArrowRight.playing {
-    background-image: radial-gradient(yellow 0, #FAB005 60%, #FAB005 100%);
+    background-image: radial-gradient(yellow 0, #FBC037 60%, #FBC037 100%);
 }
 
 #ArrowRight.playing:hover {
-    background-image: radial-gradient(yellow 0, #FAB005 60%, #FAB005 100%);
+    background-image: radial-gradient(yellow 0, #FBC037 60%, #FBC037 100%);
 }
 
 #ArrowLeft.available {
@@ -130,17 +130,17 @@ footer {
     transition: var(--transition-time); 
 }
 
-#ArrowLeft.available:hover {
+/* #ArrowLeft.available:hover {
     background-color: #1671BF;
     transition: var(--transition-time); 
-}
+} */
 
 #ArrowLeft.playing {
-    background-image: radial-gradient(yellow 0, #1671BF 60%, #1671BF 100%);
+    background-image: radial-gradient(yellow 0, #228be6 60%, #228be6 100%);
 }
 
 #ArrowLeft.playing:hover {
-    background-image: radial-gradient(yellow 0, #1671BF 60%, #1671BF 100%);
+    background-image: radial-gradient(yellow 0, #228be6 60%, #228be6 100%);
 }
 
 #ArrowDown.available {
@@ -148,15 +148,15 @@ footer {
     transition: var(--transition-time); 
 }
 
-#ArrowDown.available:hover {
+/* #ArrowDown.available:hover {
     background-color: #339A45;
     transition: var(--transition-time); 
-}
+} */
 
 #ArrowDown.playing {
-    background-image: radial-gradient(yellow 0, #339A45 60%, #339A45 100%);
+    background-image: radial-gradient(yellow 0, #40c057 60%, #40c057 100%);
 }
 
 #ArrowDown.playing:hover {
-    background-image: radial-gradient(yellow 0, #339A45 60%, #339A45 100%);
+    background-image: radial-gradient(yellow 0, #40c057 60%, #40c057 100%);
 }
