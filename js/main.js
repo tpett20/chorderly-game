@@ -90,10 +90,9 @@ function renderPrompt() {
 }
 
 function renderSquares() {
-    const squares = squareEls.querySelectorAll('div')
+    const squares = squareEls.querySelectorAll('.square')
     squares.forEach(square => {
         square.classList.remove('playing')
-        // square.classList.remove('active')
         square.classList.add('available')
     })
 }
@@ -172,19 +171,17 @@ function playerTurnPrompt() {
     }, 1000 * computerSequence.length + messageDuration)
 }
 
-// - If Game Mode = Normal
-// Remove + Add CSS Classes to Corresponding Game Square to Depict Square Being Played for Specified Duration (Synchronous with Sound)
-
 function addSquareListeners() {
     setTimeout(() => {
         squareEls.addEventListener('click', handleSquareEffect)
         squareEls.addEventListener('click', handleSquareDisplay)
-    }, 1000 * computerSequence.length)
+    }, 1000 * computerSequence.length + messageDuration)
 }
 
 function handleSquareDisplay(evt) {
     let playingSquareDirection
-    if (evt.target.tagName === 'SECTION') {
+    console.dir(evt.target)
+    if (evt.target.tagName === 'SECTION' || evt.target.id === 'prompt') {
         return
     } else if (evt.target.tagName === 'P') {
         playingSquareDirection = evt.target.parentNode.id
@@ -238,13 +235,18 @@ function compareSequenceLengths() {
         playerScore ++
         playerSequence = []
         inputIdx = 0
+        removeSquareEffectListener()
         computerTurnPrompt()
     }
 }
 
+function removeSquareEffectListener() {
+    squareEls.removeEventListener('click', handleSquareEffect)
+}
+
 function computerTurnPrompt() {
     setTimeout(() => {
-        promptEl.innerHTML = `<p>Nice! Listen Up Again!</p>`
+        promptEl.innerHTML = `<p>👏 Listen Up Again!</p>`
         promptEl.style.visibility = 'visible'
         renderScores()
     }, messageDuration / 2)
@@ -266,12 +268,8 @@ function replaceChordSound() {
     uglyChord.play()
 }
 
-function removeSquareEffectListener() {
-    squareEls.removeEventListener('click', handleSquareEffect)
-}
-
 function gameOverMessage() {
-    promptEl.innerHTML = `<p>Oops.. GAME OVER!</p>`
+    promptEl.innerHTML = `<p>😬 GAME OVER!</p>`
     promptEl.style.visibility = 'visible'
     renderScores()
     setTimeout(() => {
