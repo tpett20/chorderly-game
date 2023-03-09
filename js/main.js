@@ -27,8 +27,10 @@ const chords = [
     {direction: 'ArrowDown', sound: aMinor}
 ]
 
-displayDuration = 900
-messageDuration = 1250
+const displayDuration = 900
+const bufferDuration = 50
+const promptDuration = 1250
+const messageDuration = 2500
 
 /*----- State (Variables) -----*/
 let computerSequence
@@ -102,12 +104,21 @@ function handleGameMode(evt) {
 
 function handleStartGame() {
     removeButtons()
-    runComputerTurn()
+    startGamePrompt()
 }
 
 function removeButtons() {
     startGameEl.style.visibility = 'hidden'
     gameModeEls.style.visibility = 'hidden'
+}
+
+function startGamePrompt() {
+    promptEl.innerHTML = `<p>Get Ready to Repeat Some Chords!</p>`
+    promptEl.style.visibility = 'visible'
+    setTimeout(() => {
+        render()
+        runComputerTurn()
+    }, messageDuration)
 }
 
 function runComputerTurn() {
@@ -138,11 +149,11 @@ function playComputerSequence() {
                 setTimeout(() => {
                     unhighlightSquare(playingSquareEl)
                 }, displayDuration)
-            }, 1000 * sequenceIdx)
+            }, (displayDuration + bufferDuration) * sequenceIdx)
         } else {
             setTimeout(() => {
                 chords[chordIdx].sound.play()
-            }, 1000 * sequenceIdx)
+            }, (displayDuration + bufferDuration) * sequenceIdx)
         }
     })
 }
@@ -159,22 +170,22 @@ function playerTurnPrompt() {
     setTimeout(() => {
         promptEl.innerHTML = `<p>Your Turn!</p>`
         promptEl.style.visibility = 'visible'
-    }, 1000 * computerSequence.length)
+    }, (displayDuration + bufferDuration) * computerSequence.length)
     setTimeout(() => {
         render()
-    }, 1000 * computerSequence.length + messageDuration)
+    }, (displayDuration + bufferDuration) * computerSequence.length + messageDuration)
 }
 
 function addSquareListeners() {
     setTimeout(() => {
         squareEls.addEventListener('click', handleSquareEffect)
         squareEls.addEventListener('click', handleSquareDisplay)
-    }, 1000 * computerSequence.length + messageDuration)
+    }, (displayDuration + bufferDuration) * computerSequence.length + messageDuration)
 }
 
 function handleSquareDisplay(evt) {
     let playingSquareDirection
-    if (evt.target.tagName === 'SECTION' || evt.target.id === 'prompt') {
+    if (evt.target.tagName === 'SECTION') {
         return
     } else if (evt.target.tagName === 'P') {
         playingSquareDirection = evt.target.parentNode.id
