@@ -183,9 +183,14 @@ function addSquareListeners() {
 }
 
 function handleSquareDisplay(evt) {
-    console.log(evt.target)
-    if (evt.target.tagName !== 'DIV') return
-    const playingSquareDirection = evt.target.id
+    let playingSquareDirection
+    if (evt.target.tagName === 'SECTION') {
+        return
+    } else if (evt.target.tagName === 'P') {
+        playingSquareDirection = evt.target.parentNode.id
+    } else {
+        playingSquareDirection = evt.target.id
+    }
     const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
     chords.forEach(chord => {
         if (chord.direction === playingSquareDirection) {
@@ -204,9 +209,16 @@ function handleSquareEffect(evt) {
 }
 
 function addToPlayerSequence(evt) {
-    if (evt.target.tagName !== 'DIV') return
+    let playingSquareDirection
+    if (evt.target.tagName === 'SECTION') {
+        return
+    } else if (evt.target.tagName === 'P') {
+        playingSquareDirection = evt.target.parentNode.id
+    } else {
+        playingSquareDirection = evt.target.id
+    }
     chords.forEach(chord => {
-        if (chord.direction === evt.target.id) {
+        if (chord.direction === playingSquareDirection) {
             const chordIdx = chords.indexOf(chord)
             playerSequence.push(chordIdx)
         }
