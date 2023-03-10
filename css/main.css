@@ -13,6 +13,7 @@ html {
     width: 100%;
     font-family: 'Tilt Warp', cursive;
     color: var(--global-font-color);
+    background-color: #B9D7E1; 
 }
 
 * {
@@ -150,4 +151,38 @@ main {
 
 #ArrowDown.playing {
     background-image: radial-gradient(yellow 0, var(--green) 60%, var(--green) 100%);
+}
+
+@media screen and (max-width: 580px) {
+    h1 {
+        margin-top: 10px; 
+    }
+    #prompt {
+        font-size: 1.5em;
+    }
+    #prompt > p {
+        width: 40vmin; 
+    }
+    #scores {
+        margin-bottom: -10px;
+        font-size: 1.3em;
+    }
+    #game-board {
+        width: 70vmin;
+        gap: 3vmin;
+    }
+    .square {
+        height: 33vmin;
+        width: 33vmin;
+    }
+    .square > p {
+        font-size: 3.5em;
+    }
+    #game-modes {
+        margin-top: 85px;
+        margin-bottom: 45px;
+    }
+    #start-game {
+        font-size: 1.75em;
+    }
 }
