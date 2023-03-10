@@ -1,6 +1,7 @@
 html {
     height: 100%;
     width: 100%;
+    font-family: 'Tilt Warp', cursive;
 }
 
 * {
@@ -11,7 +12,7 @@ html {
 h1 {
     text-align: center;
     margin-bottom: 0;
-    font-size: 2em;
+    font-size: 3em;
 }
 
 #prompt {
@@ -34,7 +35,7 @@ h1 {
     justify-content: space-around;
     /* justify-content: space-evenly also works nicely */
     margin-bottom: -100px;
-    font-size: 1.5em;
+    font-size: 1.55em;
 }
 
 #game-board {
@@ -59,7 +60,7 @@ h1 {
 
 .square > p {
     rotate: -45deg;
-    font-size: 4em;
+    font-size: 3.5em;
 }
 
 #game-modes {
@@ -67,21 +68,38 @@ h1 {
     justify-content: space-around;
     /* justify-content: space-evenly also works nicely */
     margin-top: -75px;
-    margin-bottom: 75px;
+    margin-bottom: 65px;
 }
 
 #game-modes > button {
-    font-size: 1.25em
+    font-size: 1.25em;
+    width: 165px;
+    background-color: #CCD1D1;
+    border: 0;
+    border-radius: 10px;
+    font-family: 'Tilt Warp', cursive;
+}
+
+#game-modes > button.selected {
+    background-color: #40c057;
 }
 
 #start-game {
     display: block; 
     margin: 0 auto; 
-    font-size: 1.25em;
+    font-size: 1.55em;
+    background-color: #fd7e14; 
+    border: 0;
+    border-radius: 10px;
+    font-family: 'Tilt Warp', cursive;
 }
 
-footer {
-    text-align: center;
+#start-game:hover {
+    background-color: #FDA760;
+}
+
+.square > p {
+    cursor: default;
 }
 
 #ArrowUp {

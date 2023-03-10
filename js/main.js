@@ -30,16 +30,15 @@ const chords = [
 const displayDuration = 900
 const bufferDuration = 50
 const promptDuration = 1250
-const messageDuration = 2500
+const messageDuration = 2000
 
 /*----- State (Variables) -----*/
 let computerSequence
 let playerSequence
 let inputIdx
-let gameMode = 'Normal Mode'
+let gameMode = 'normal'
 let playerScore
 let highScore = 0
-let chordPlay
 
 /*----- Cached DOM Elements -----*/
 const squareEls = document.querySelector('#game-board')
@@ -74,12 +73,16 @@ function render() {
 function renderGameMode() {
     const normalBtn = gameModeEls.querySelector('#normal')
     const playByEarBtn = gameModeEls.querySelector('#play-by-ear')
-    if (gameMode === 'Play By Ear') {
-        normalBtn.textContent = `☐ Normal Mode`
-        playByEarBtn.textContent = `☑︎ ${gameMode}`
+    if (gameMode === 'play-by-ear') {
+        normalBtn.textContent = `Normal Mode`
+        normalBtn.classList.remove('selected')
+        playByEarBtn.textContent = `🙈 Play By Ear`
+        playByEarBtn.classList.add('selected')
     } else {
-        normalBtn.textContent = `☑︎ ${gameMode}`
-        playByEarBtn.textContent = `☐ Play By Ear`
+        normalBtn.textContent = `🐵 Normal Mode`
+        normalBtn.classList.add('selected')
+        playByEarBtn.textContent = `Play By Ear`
+        playByEarBtn.classList.remove('selected')
     }
 }
 
@@ -95,9 +98,9 @@ function renderScores() {
 
 function handleGameMode(evt) {
     if (evt.target.id === 'play-by-ear') {
-        gameMode = 'Play By Ear'
+        gameMode = 'play-by-ear'
     } else if (evt.target.id === 'normal') {
-        gameMode = 'Normal Mode'
+        gameMode = 'normal'
     }
     render()
 }
@@ -142,7 +145,7 @@ function playComputerSequence() {
     computerSequence.forEach((chordIdx, sequenceIdx) => {
         const playingSquareDirection = chords[chordIdx].direction
         const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
-        if (gameMode === 'Normal Mode') {
+        if (gameMode === 'normal') {
             setTimeout(() => {
                 chords[chordIdx].sound.play()
                 highlightSquare(playingSquareEl)
@@ -195,7 +198,7 @@ function handleSquareDisplay(evt) {
     const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
     chords.forEach(chord => {
         if (chord.direction === playingSquareDirection) {
-            chordPlay = setTimeout(() => {chord.sound.play()}, 10)
+            chord.sound.play()
         }
     })
     highlightSquare(playingSquareEl)
@@ -253,22 +256,25 @@ function computerTurnPrompt() {
         promptEl.innerHTML = `<p>👏 Listen Up Again!</p>`
         promptEl.style.visibility = 'visible'
         renderScores()
-    }, messageDuration / 2)
+    }, displayDuration)
     setTimeout(() => {
         render()
         runComputerTurn()
-    }, messageDuration * 2)
+    }, displayDuration + messageDuration)
 }
 
 function gameOver() {
-    if (playerScore > highScore) highScore = playerScore
-    replaceChordSound()
+    checkHighScore()
+    playUglyChord()
     removeSquareEffectListener()
     gameOverMessage()
 }
 
-function replaceChordSound() {
-    clearTimeout(chordPlay)
+function checkHighScore() {
+    if (playerScore > highScore) highScore = playerScore
+}
+
+function playUglyChord() {
     uglyChord.play()
 }
 
@@ -279,7 +285,7 @@ function gameOverMessage() {
     setTimeout(() => {
         init()
         addButtons()
-    }, messageDuration * 2)
+    }, messageDuration)
 }
 
 function addButtons() {
