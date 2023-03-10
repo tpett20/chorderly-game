@@ -57,6 +57,11 @@ const promptEl = document.querySelector('#prompt')
 gameModeEls.addEventListener('click', handleGameMode)
 startGameEl.addEventListener('click', handleStartGame)
 squareEls.addEventListener('click', handleSquareDisplay)
+window.addEventListener('DOMContentLoaded', loadSounds)
+function loadSounds(){
+    chords.forEach(chord => chord.sound.load())
+}
+
 
 /*----- Functions -----*/
 init()
