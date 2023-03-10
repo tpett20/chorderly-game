@@ -1,7 +1,18 @@
+/* VARIABLES */
+:root {
+    --global-font-color: black;
+    --red: #FA5252; 
+    --yellow: #FBC037; 
+    --blue: #228BE6; 
+    --green: #40C057; 
+    --orange: #FD7E14;
+}
+
 html {
     height: 100%;
     width: 100%;
     font-family: 'Tilt Warp', cursive;
+    color: var(--global-font-color);
 }
 
 * {
@@ -13,6 +24,11 @@ h1 {
     text-align: center;
     margin-bottom: 0;
     font-size: 3em;
+}
+
+main {
+    max-width: 1100px;
+    margin: 0 auto; 
 }
 
 #prompt {
@@ -27,7 +43,7 @@ h1 {
     width: 29vmin; 
     padding: 0.5em; 
     border-radius: 10px;
-    background-color: #fd7e14; 
+    background-color: var(--orange); 
 }
 
 #scores {
@@ -75,20 +91,22 @@ h1 {
     font-size: 1.25em;
     width: 165px;
     background-color: #CCD1D1;
+    color: #515A5A; 
     border: 0;
     border-radius: 10px;
     font-family: 'Tilt Warp', cursive;
 }
 
 #game-modes > button.selected {
-    background-color: #40c057;
+    background-color: var(--green);
+    color: var(--global-font-color); 
 }
 
 #start-game {
     display: block; 
     margin: 0 auto; 
     font-size: 1.55em;
-    background-color: #fd7e14; 
+    background-color: var(--orange); 
     border: 0;
     border-radius: 10px;
     font-family: 'Tilt Warp', cursive;
@@ -103,33 +121,33 @@ h1 {
 }
 
 #ArrowUp {
-    background-color: #FA5252;
+    background-color: var(--red);
 }
 
 #ArrowUp.playing {
-    background-image: radial-gradient(yellow 0, #FA5252 60%, #FA5252 100%);
+    background-image: radial-gradient(yellow 0, var(--red) 60%, var(--red) 100%);
 }
 
 #ArrowRight {
-    background-color: #FBC037;
+    background-color: var(--yellow);
 }
 
 #ArrowRight.playing {
-    background-image: radial-gradient(yellow 0, #FBC037 60%, #FBC037 100%);
+    background-image: radial-gradient(yellow 0, var(--yellow) 60%, var(--yellow) 100%);
 }
 
 #ArrowLeft {
-    background-color: #228be6;
+    background-color: var(--blue);
 }
 
 #ArrowLeft.playing {
-    background-image: radial-gradient(yellow 0, #228be6 60%, #228be6 100%);
+    background-image: radial-gradient(yellow 0, var(--blue) 60%, var(--blue) 100%);
 }
 
 #ArrowDown {
-    background-color: #40c057;
+    background-color: var(--green);
 }
 
 #ArrowDown.playing {
-    background-image: radial-gradient(yellow 0, #40c057 60%, #40c057 100%);
+    background-image: radial-gradient(yellow 0, var(--green) 60%, var(--green) 100%);
 }
