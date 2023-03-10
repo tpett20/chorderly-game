@@ -3,22 +3,27 @@
 const cMajor = document.createElement('audio')
 cMajor.src = 'sounds/C-Maj-GP-0.8s.m4a'
 cMajor.volume = 0.5
+cMajor.preload = 'auto'
 
 const gMajor = document.createElement('audio')
 gMajor.src = 'sounds/G-Maj-GP-0.8s.m4a'
 gMajor.volume = 0.5
+gMajor.preload = 'auto'
 
 const aMinor = document.createElement('audio')
 aMinor.src = 'sounds/A-Min-GP-0.8s.m4a'
 aMinor.volume = 0.5
+aMinor.preload = 'auto'
 
 const fMajor = document.createElement('audio')
 fMajor.src = 'sounds/F-Maj-GP-0.8s.m4a'
 fMajor.volume = 0.5
+fMajor.preload = 'auto'
 
 const uglyChord = document.createElement('audio')
 uglyChord.src = 'sounds/Ugly-Chord-GP-1.6s.m4a'
 uglyChord.volume = 0.75
+uglyChord.preload = 'auto'
 
 const chords = [
     {direction: 'ArrowUp', sound: cMajor},
@@ -125,14 +130,14 @@ function startGamePrompt() {
 }
 
 function runComputerTurn() {
-    removeSquareListeners()
+    removeSquareDisplayListener()
     addToCompSequence()
     playComputerSequence()
     playerTurnPrompt()
     addSquareListeners()
 }
 
-function removeSquareListeners() {
+function removeSquareDisplayListener() {
     squareEls.removeEventListener('click', handleSquareDisplay)
 }
 
