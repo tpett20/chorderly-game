@@ -13,7 +13,7 @@ html {
     width: 100%;
     font-family: 'Tilt Warp', cursive;
     color: var(--global-font-color);
-    background-color: #B9D7E1; 
+    background-color: #CCE9F9; 
 }
 
 * {
@@ -91,8 +91,8 @@ main {
 #game-modes > button {
     font-size: 1.25em;
     width: 165px;
-    background-color: #CCD1D1;
-    color: #515A5A; 
+    background-color: #B2BABB;
+    color: #424949; 
     border: 0;
     border-radius: 10px;
     font-family: 'Tilt Warp', cursive;
