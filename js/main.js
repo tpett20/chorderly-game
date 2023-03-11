@@ -133,19 +133,8 @@ function handleGameMode(evt) {
 }
 
 function handleStartGame() {
-    removeAllEventListeners()
     removeButtons()
     startGamePrompt()
-}
-
-function removeAllEventListeners() {
-    document.body.removeEventListener('keydown', btnsKeyBehavior)
-    gameModeEls.removeEventListener('click', handleGameMode)
-    startGameEl.removeEventListener('click', handleStartGame)
-    document.body.removeEventListener('keydown', squareDisplayKeyBehavior)
-    squareEls.removeEventListener('click', handleSquareDisplay)
-    document.body.removeEventListener('keydown', squareEffectKeyBehavior)
-    squareEls.removeEventListener('click', handleSquareEffect)
 }
 
 function removeButtons() {
@@ -163,9 +152,21 @@ function startGamePrompt() {
 }
 
 function runComputerTurn() {
+    removeAllEventListeners()
     addToCompSequence()
     playComputerSequence()
     playerTurnPrompt()
+}
+
+function removeAllEventListeners() {
+    console.log('Remove All Evt Listeners')
+    document.body.removeEventListener('keydown', btnsKeyBehavior)
+    gameModeEls.removeEventListener('click', handleGameMode)
+    startGameEl.removeEventListener('click', handleStartGame)
+    document.body.removeEventListener('keydown', squareDisplayKeyBehavior)
+    squareEls.removeEventListener('click', handleSquareDisplay)
+    document.body.removeEventListener('keydown', squareEffectKeyBehavior)
+    squareEls.removeEventListener('click', handleSquareEffect)
 }
 
 function addToCompSequence() {
@@ -214,8 +215,8 @@ function playerTurnPrompt() {
 
 function addAllSquareEventListeners() {
     document.body.addEventListener('keydown', squareDisplayKeyBehavior)
-    document.body.addEventListener('keydown', squareEffectKeyBehavior)
     squareEls.addEventListener('click', handleSquareDisplay)
+    document.body.addEventListener('keydown', squareEffectKeyBehavior)
     squareEls.addEventListener('click', handleSquareEffect)
 }
 
@@ -246,19 +247,13 @@ function handleSquareDisplay(evt) {
     })
     highlightSquare(playingSquareEl)
     setTimeout(() => {
-        removeAllSquareEventListeners()
-    }, bufferDuration)
-    setTimeout(() => {
         unhighlightSquare(playingSquareEl)
-        addSquareDisplayEventListener()
     }, displayDuration)
 }
 
-function removeAllSquareEventListeners() {
+function removeSquareDisplayEventListener() {
     document.body.removeEventListener('keydown', squareDisplayKeyBehavior)
-    document.body.removeEventListener('keydown', squareEffectKeyBehavior)
     squareEls.removeEventListener('click', handleSquareDisplay)
-    squareEls.removeEventListener('click', handleSquareEffect)
 }
 
 function addSquareDisplayEventListener() {
@@ -269,14 +264,12 @@ function addSquareDisplayEventListener() {
 function handleSquareEffect(evt) {
     addToPlayerSequence(evt)
     checkPlayerInput()
-    addSquareEffectEventListener()
 }
 
 function addSquareEffectEventListener() {
-    setTimeout(() => {
-        document.body.addEventListener('keydown', squareEffectKeyBehavior)
-        squareEls.addEventListener('click', handleSquareEffect)
-    }, displayDuration)
+    console.log('squareEffect added')
+    document.body.addEventListener('keydown', squareEffectKeyBehavior)
+    squareEls.addEventListener('click', handleSquareEffect)
 }
 
 function addToPlayerSequence(evt) {
@@ -300,12 +293,14 @@ function addToPlayerSequence(evt) {
 }
 
 function checkPlayerInput() {
+    console.log('check player input p + c', playerSequence[inputIdx], computerSequence[inputIdx])
     if (playerSequence[inputIdx] === computerSequence[inputIdx]) {
         compareSequenceLengths()
     } else gameOver()
 }
 
 function compareSequenceLengths() {
+    console.log('compare Sequence Lengths p + c', playerSequence, computerSequence)
     if (playerSequence.length !== computerSequence.length) {
         inputIdx += 1
     } else {
@@ -321,6 +316,8 @@ function computerTurnPrompt() {
         promptEl.innerHTML = `<p>👏 Listen Up Again!</p>`
         promptEl.style.visibility = 'visible'
         renderScores()
+        removeSquareDisplayEventListener()
+        removeSquareEffectEventListener()
     }, displayDuration)
     setTimeout(() => {
         render()
@@ -329,9 +326,10 @@ function computerTurnPrompt() {
 }
 
 function gameOver() {
+    console.log('gameOver running')
     checkHighScore()
     playUglyChord()
-    removeSquareEffectListener()
+    removeSquareEffectEventListener()
     gameOverMessage()
 }
 
@@ -343,7 +341,7 @@ function playUglyChord() {
     uglyChord.play()
 }
 
-function removeSquareEffectListener() {
+function removeSquareEffectEventListener() {
     document.body.removeEventListener('keydown', squareEffectKeyBehavior)
     squareEls.removeEventListener('click', handleSquareEffect)
 }
