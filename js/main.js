@@ -297,6 +297,7 @@ function gameOver() {
     playerTurn = false
     checkHighScore()
     playUglyChord()
+    revealCorrectAnswer()
     gameOverMessage()
 }
 
@@ -309,6 +310,24 @@ function checkHighScore() {
 
 function playUglyChord() {
     uglyChord.play()
+}
+
+function revealCorrectAnswer() {
+    const correctAnswerIdx = computerSequence[inputIdx]
+    const correctAnswerDirection = chords[correctAnswerIdx].direction
+    const correctSquareEl = gameBoardEl.querySelector(`#${correctAnswerDirection}`)
+    highlightCorrectSquare(correctSquareEl)
+    setTimeout(() => {
+        unhighlightCorrectSquare(correctSquareEl)
+    }, messageDuration)
+}
+
+function highlightCorrectSquare(playingSquareEl) {
+    playingSquareEl.classList.add('correct')
+}
+
+function unhighlightCorrectSquare(playingSquareEl) {
+    playingSquareEl.classList.remove('correct')
 }
 
 function gameOverMessage() {

@@ -129,12 +129,20 @@ main {
     background-image: radial-gradient(yellow 0, var(--red) 60%, var(--red) 100%);
 }
 
+#ArrowUp.correct {
+    background-image: radial-gradient(lightgreen 0, lightgreen 25%, var(--red) 60%, var(--red) 100%);
+}
+
 #ArrowRight {
     background-color: var(--yellow);
 }
 
 #ArrowRight.playing {
     background-image: radial-gradient(yellow 0, var(--yellow) 60%, var(--yellow) 100%);
+}
+
+#ArrowRight.correct {
+    background-image: radial-gradient(lightgreen 0, lightgreen 25%, var(--yellow) 60%, var(--yellow) 100%);
 }
 
 #ArrowLeft {
@@ -145,12 +153,20 @@ main {
     background-image: radial-gradient(yellow 0, var(--blue) 60%, var(--blue) 100%);
 }
 
+#ArrowLeft.correct {
+    background-image: radial-gradient(lightgreen 0, lightgreen 25%, var(--blue) 60%, var(--blue) 100%);
+}
+
 #ArrowDown {
     background-color: var(--green);
 }
 
 #ArrowDown.playing {
     background-image: radial-gradient(yellow 0, var(--green) 60%, var(--green) 100%);
+}
+
+#ArrowDown.correct {
+    background-image: radial-gradient(lightgreen 0, lightgreen 25%, var(--green) 60%, var(--green) 100%);
 }
 
 @media screen and (max-width: 580px) {
