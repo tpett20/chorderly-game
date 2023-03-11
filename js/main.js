@@ -35,11 +35,11 @@ const messageDuration = 2000
 /*----- State (Variables) -----*/
 let computerSequence
 let playerSequence
+let playerTurn
 let inputIdx
 let gameMode = 'normal'
 let playerScore
 let highScore = 0
-let playerTurn
 
 /*----- Cached DOM Elements -----*/
 const gameBoardEl = document.querySelector('#game-board')
@@ -101,34 +101,38 @@ function renderScores() {
 }
 
 function buttonsKeyBehavior(evt) {
-    if (evt.code === 'KeyN' || evt.code === 'KeyP') {
+    const keyPressed = evt.code
+    if (keyPressed === 'KeyN' || keyPressed === 'KeyP') {
         handleGameMode(evt)
     }
-    else if (evt.code === 'Space') {
+    else if (keyPressed === 'Space') {
         handleStartGame()
     }
 }
     
 function squareKeyBehavior(evt) {
-    if (evt.code === 'ArrowUp' || evt.code === 'ArrowDown' ||
-        evt.code === 'ArrowLeft' || evt.code === 'ArrowRight') {
+    const keyPressed = evt.code
+    if (keyPressed === 'ArrowUp' || keyPressed === 'ArrowDown' ||
+    keyPressed === 'ArrowLeft' || keyPressed === 'ArrowRight') {
         handleSquarePlay(evt)
-    } 
+    }
 }
 
 function handleGameMode(evt) {
-    if (evt.code) {
-        if (evt.code === 'KeyN') {
+    const keyPressed = evt.code
+    const clickId = evt.target.id
+    if (keyPressed) {
+        if (keyPressed === 'KeyN') {
             gameMode = 'normal'
         }
-        else if (evt.code === 'KeyP') {
+        else if (keyPressed === 'KeyP') {
             gameMode = 'play-by-ear'
         }
     }
-    else if (evt.target.id === 'normal') {
+    else if (clickId === 'normal') {
         gameMode = 'normal'
     }
-    else if (evt.target.id === 'play-by-ear') {
+    else if (clickId === 'play-by-ear') {
         gameMode = 'play-by-ear'
     }
     render()
@@ -137,6 +141,7 @@ function handleGameMode(evt) {
 function handleStartGame() {
     removeButtons()
     startGamePrompt()
+    // runComputerTurn called via setTimeout in startGamePrompt
 }
 
 function removeButtons() {
@@ -155,7 +160,7 @@ function startGamePrompt() {
 
 function runComputerTurn() {
     removeAllEventListeners()
-    addToCompSequence()
+    addRandomChordToComputerSequence()
     playComputerSequence()
     playerTurnPrompt()
 }
@@ -168,7 +173,7 @@ function removeAllEventListeners() {
     gameBoardEl.removeEventListener('click', handleSquarePlay)
 }
 
-function addToCompSequence() {
+function addRandomChordToComputerSequence() {
     let chordIdx = Math.floor(Math.random() * 4)
     computerSequence.push(chordIdx)
 }
@@ -218,24 +223,20 @@ function addSquareEventListeners() {
     gameBoardEl.addEventListener('click', handleSquarePlay)
 }
 
-// function squareEffectKeyBehavior(evt) {
-//     if (evt.code === 'ArrowUp' || evt.code === 'ArrowDown' ||
-//         evt.code === 'ArrowLeft' || evt.code === 'ArrowRight') {
-//         handleSquareEffect(evt)
-//     }
-// }
-
 function handleSquarePlay(evt) {
     let playingSquareDirection
-    if (evt.code) {
-        playingSquareDirection = evt.code
+    const keyPressed = evt.code
+    const clickTag = evt.target.tagName
+    const clickId = evt.target.id
+    if (keyPressed) {
+        playingSquareDirection = keyPressed
     }
-    else if (evt.target.tagName === 'SECTION') {
+    else if (clickTag === 'SECTION') {
         return
-    } else if (evt.target.tagName === 'P') {
+    } else if (clickTag === 'P') {
         playingSquareDirection = evt.target.parentNode.id
     } else {
-        playingSquareDirection = evt.target.id
+        playingSquareDirection = clickId
     }
     const playingSquareEl = gameBoardEl.querySelector(`#${playingSquareDirection}`)
     chords.forEach(chord => {
@@ -253,39 +254,7 @@ function handleSquarePlay(evt) {
     }, displayDuration)
 }
 
-// function removeSquareDisplayEventListener() {
-//     document.body.removeEventListener('keydown', squareDisplayKeyBehavior)
-//     squareEls.removeEventListener('click', handleSquareDisplay)
-// }
-
-// function addSquareDisplayEventListener() {
-//     document.body.addEventListener('keydown', squareDisplayKeyBehavior)
-//     squareEls.addEventListener('click', handleSquareDisplay)
-// }
-
-// function handleSquareEffect(evt) {
-//     addToPlayerSequence(evt)
-//     checkPlayerInput()
-// }
-
-// function addSquareEffectEventListener() {
-//     console.log('squareEffect added')
-//     document.body.addEventListener('keydown', squareEffectKeyBehavior)
-//     squareEls.addEventListener('click', handleSquareEffect)
-// }
-
 function addToPlayerSequence(playingSquareDirection) {
-    // let playingSquareDirection
-    // if (evt.code) {
-    //     playingSquareDirection = evt.code
-    // }
-    // else if (evt.target.tagName === 'SECTION') {
-    //     return
-    // } else if (evt.target.tagName === 'P') {
-    //     playingSquareDirection = evt.target.parentNode.id
-    // } else {
-    //     playingSquareDirection = evt.target.id
-    // }
     chords.forEach(chord => {
         if (chord.direction === playingSquareDirection) {
             const chordIdx = chords.indexOf(chord)
@@ -308,6 +277,7 @@ function compareSequenceLengths() {
         playerSequence = []
         inputIdx = 0
         playerTurn = false
+        render()
         computerTurnPrompt()
     }
 }
@@ -316,9 +286,6 @@ function computerTurnPrompt() {
     setTimeout(() => {
         promptEl.innerHTML = `<p>👏 Listen Up Again!</p>`
         promptEl.style.visibility = 'visible'
-        renderScores()
-        // removeSquareDisplayEventListener()
-        // removeSquareEffectEventListener()
     }, displayDuration)
     setTimeout(() => {
         render()
@@ -330,27 +297,23 @@ function gameOver() {
     playerTurn = false
     checkHighScore()
     playUglyChord()
-    // removeSquareEffectEventListener()
     gameOverMessage()
 }
 
 function checkHighScore() {
-    if (playerScore > highScore) highScore = playerScore
+    if (playerScore > highScore) {
+        highScore = playerScore
+    }
+    render()
 }
 
 function playUglyChord() {
     uglyChord.play()
 }
 
-// function removeSquareEffectEventListener() {
-//     document.body.removeEventListener('keydown', squareEffectKeyBehavior)
-//     squareEls.removeEventListener('click', handleSquareEffect)
-// }
-
 function gameOverMessage() {
     promptEl.innerHTML = `<p>😬 GAME OVER!</p>`
     promptEl.style.visibility = 'visible'
-    renderScores()
     setTimeout(() => {
         init()
         addButtons()
