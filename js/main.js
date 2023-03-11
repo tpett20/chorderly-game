@@ -39,9 +39,10 @@ let inputIdx
 let gameMode = 'normal'
 let playerScore
 let highScore = 0
+let playerTurn
 
 /*----- Cached DOM Elements -----*/
-const squareEls = document.querySelector('#game-board')
+const gameBoardEl = document.querySelector('#game-board')
 const gameModeEls = document.querySelector('#game-modes')
 const startGameEl = document.querySelector('#start-game')
 const yourScoreEl = document.querySelector('#your-score')
@@ -49,11 +50,11 @@ const highScoreEl = document.querySelector('#high-score')
 const promptEl = document.querySelector('#prompt')
 
 /*----- Event Listeners -----*/
-document.body.addEventListener('keydown', btnsKeyBehavior)
-document.body.addEventListener('keydown', squareDisplayKeyBehavior)
+document.body.addEventListener('keydown', buttonsKeyBehavior)
+document.body.addEventListener('keydown', squareKeyBehavior)
 gameModeEls.addEventListener('click', handleGameMode)
 startGameEl.addEventListener('click', handleStartGame)
-squareEls.addEventListener('click', handleSquareDisplay)
+gameBoardEl.addEventListener('click', handleSquarePlay)
 
 /*----- Functions -----*/
 init()
@@ -63,6 +64,7 @@ function init() {
     computerSequence = []
     playerSequence = []
     inputIdx = 0
+    playerTurn = false
     render()
 }
 
@@ -98,7 +100,7 @@ function renderScores() {
     highScoreEl.innerHTML = `<p>High Score: ${highScore}</p>`
 }
 
-function btnsKeyBehavior(evt) {
+function buttonsKeyBehavior(evt) {
     if (evt.code === 'KeyN' || evt.code === 'KeyP') {
         handleGameMode(evt)
     }
@@ -107,10 +109,10 @@ function btnsKeyBehavior(evt) {
     }
 }
     
-function squareDisplayKeyBehavior(evt) {
+function squareKeyBehavior(evt) {
     if (evt.code === 'ArrowUp' || evt.code === 'ArrowDown' ||
         evt.code === 'ArrowLeft' || evt.code === 'ArrowRight') {
-        handleSquareDisplay(evt)
+        handleSquarePlay(evt)
     } 
 }
 
@@ -159,14 +161,11 @@ function runComputerTurn() {
 }
 
 function removeAllEventListeners() {
-    console.log('Remove All Evt Listeners')
-    document.body.removeEventListener('keydown', btnsKeyBehavior)
+    document.body.removeEventListener('keydown', buttonsKeyBehavior)
     gameModeEls.removeEventListener('click', handleGameMode)
     startGameEl.removeEventListener('click', handleStartGame)
-    document.body.removeEventListener('keydown', squareDisplayKeyBehavior)
-    squareEls.removeEventListener('click', handleSquareDisplay)
-    document.body.removeEventListener('keydown', squareEffectKeyBehavior)
-    squareEls.removeEventListener('click', handleSquareEffect)
+    document.body.removeEventListener('keydown', squareKeyBehavior)
+    gameBoardEl.removeEventListener('click', handleSquarePlay)
 }
 
 function addToCompSequence() {
@@ -177,7 +176,7 @@ function addToCompSequence() {
 function playComputerSequence() {
     computerSequence.forEach((chordIdx, sequenceIdx) => {
         const playingSquareDirection = chords[chordIdx].direction
-        const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
+        const playingSquareEl = gameBoardEl.querySelector(`#${playingSquareDirection}`)
         if (gameMode === 'normal') {
             setTimeout(() => {
                 chords[chordIdx].sound.play()
@@ -208,26 +207,25 @@ function playerTurnPrompt() {
         promptEl.style.visibility = 'visible'
     }, (displayDuration + bufferDuration) * computerSequence.length)
     setTimeout(() => {
+        playerTurn = true
         render()
-        addAllSquareEventListeners()
+        addSquareEventListeners()
     }, (displayDuration + bufferDuration) * computerSequence.length + messageDuration)
 }
 
-function addAllSquareEventListeners() {
-    document.body.addEventListener('keydown', squareDisplayKeyBehavior)
-    squareEls.addEventListener('click', handleSquareDisplay)
-    document.body.addEventListener('keydown', squareEffectKeyBehavior)
-    squareEls.addEventListener('click', handleSquareEffect)
+function addSquareEventListeners() {
+    document.body.addEventListener('keydown', squareKeyBehavior)
+    gameBoardEl.addEventListener('click', handleSquarePlay)
 }
 
-function squareEffectKeyBehavior(evt) {
-    if (evt.code === 'ArrowUp' || evt.code === 'ArrowDown' ||
-        evt.code === 'ArrowLeft' || evt.code === 'ArrowRight') {
-        handleSquareEffect(evt)
-    }
-}
+// function squareEffectKeyBehavior(evt) {
+//     if (evt.code === 'ArrowUp' || evt.code === 'ArrowDown' ||
+//         evt.code === 'ArrowLeft' || evt.code === 'ArrowRight') {
+//         handleSquareEffect(evt)
+//     }
+// }
 
-function handleSquareDisplay(evt) {
+function handleSquarePlay(evt) {
     let playingSquareDirection
     if (evt.code) {
         playingSquareDirection = evt.code
@@ -239,51 +237,55 @@ function handleSquareDisplay(evt) {
     } else {
         playingSquareDirection = evt.target.id
     }
-    const playingSquareEl = squareEls.querySelector(`#${playingSquareDirection}`)
+    const playingSquareEl = gameBoardEl.querySelector(`#${playingSquareDirection}`)
     chords.forEach(chord => {
         if (chord.direction === playingSquareDirection) {
             chord.sound.play()
         }
     })
     highlightSquare(playingSquareEl)
+    if (playerTurn === true) {
+        addToPlayerSequence(playingSquareDirection)
+        checkPlayerInput()
+    }
     setTimeout(() => {
         unhighlightSquare(playingSquareEl)
     }, displayDuration)
 }
 
-function removeSquareDisplayEventListener() {
-    document.body.removeEventListener('keydown', squareDisplayKeyBehavior)
-    squareEls.removeEventListener('click', handleSquareDisplay)
-}
+// function removeSquareDisplayEventListener() {
+//     document.body.removeEventListener('keydown', squareDisplayKeyBehavior)
+//     squareEls.removeEventListener('click', handleSquareDisplay)
+// }
 
-function addSquareDisplayEventListener() {
-    document.body.addEventListener('keydown', squareDisplayKeyBehavior)
-    squareEls.addEventListener('click', handleSquareDisplay)
-}
+// function addSquareDisplayEventListener() {
+//     document.body.addEventListener('keydown', squareDisplayKeyBehavior)
+//     squareEls.addEventListener('click', handleSquareDisplay)
+// }
 
-function handleSquareEffect(evt) {
-    addToPlayerSequence(evt)
-    checkPlayerInput()
-}
+// function handleSquareEffect(evt) {
+//     addToPlayerSequence(evt)
+//     checkPlayerInput()
+// }
 
-function addSquareEffectEventListener() {
-    console.log('squareEffect added')
-    document.body.addEventListener('keydown', squareEffectKeyBehavior)
-    squareEls.addEventListener('click', handleSquareEffect)
-}
+// function addSquareEffectEventListener() {
+//     console.log('squareEffect added')
+//     document.body.addEventListener('keydown', squareEffectKeyBehavior)
+//     squareEls.addEventListener('click', handleSquareEffect)
+// }
 
-function addToPlayerSequence(evt) {
-    let playingSquareDirection
-    if (evt.code) {
-        playingSquareDirection = evt.code
-    }
-    else if (evt.target.tagName === 'SECTION') {
-        return
-    } else if (evt.target.tagName === 'P') {
-        playingSquareDirection = evt.target.parentNode.id
-    } else {
-        playingSquareDirection = evt.target.id
-    }
+function addToPlayerSequence(playingSquareDirection) {
+    // let playingSquareDirection
+    // if (evt.code) {
+    //     playingSquareDirection = evt.code
+    // }
+    // else if (evt.target.tagName === 'SECTION') {
+    //     return
+    // } else if (evt.target.tagName === 'P') {
+    //     playingSquareDirection = evt.target.parentNode.id
+    // } else {
+    //     playingSquareDirection = evt.target.id
+    // }
     chords.forEach(chord => {
         if (chord.direction === playingSquareDirection) {
             const chordIdx = chords.indexOf(chord)
@@ -293,20 +295,19 @@ function addToPlayerSequence(evt) {
 }
 
 function checkPlayerInput() {
-    console.log('check player input p + c', playerSequence[inputIdx], computerSequence[inputIdx])
     if (playerSequence[inputIdx] === computerSequence[inputIdx]) {
         compareSequenceLengths()
     } else gameOver()
 }
 
 function compareSequenceLengths() {
-    console.log('compare Sequence Lengths p + c', playerSequence, computerSequence)
     if (playerSequence.length !== computerSequence.length) {
         inputIdx += 1
     } else {
         playerScore ++
         playerSequence = []
         inputIdx = 0
+        playerTurn = false
         computerTurnPrompt()
     }
 }
@@ -316,8 +317,8 @@ function computerTurnPrompt() {
         promptEl.innerHTML = `<p>👏 Listen Up Again!</p>`
         promptEl.style.visibility = 'visible'
         renderScores()
-        removeSquareDisplayEventListener()
-        removeSquareEffectEventListener()
+        // removeSquareDisplayEventListener()
+        // removeSquareEffectEventListener()
     }, displayDuration)
     setTimeout(() => {
         render()
@@ -326,10 +327,10 @@ function computerTurnPrompt() {
 }
 
 function gameOver() {
-    console.log('gameOver running')
+    playerTurn = false
     checkHighScore()
     playUglyChord()
-    removeSquareEffectEventListener()
+    // removeSquareEffectEventListener()
     gameOverMessage()
 }
 
@@ -341,10 +342,10 @@ function playUglyChord() {
     uglyChord.play()
 }
 
-function removeSquareEffectEventListener() {
-    document.body.removeEventListener('keydown', squareEffectKeyBehavior)
-    squareEls.removeEventListener('click', handleSquareEffect)
-}
+// function removeSquareEffectEventListener() {
+//     document.body.removeEventListener('keydown', squareEffectKeyBehavior)
+//     squareEls.removeEventListener('click', handleSquareEffect)
+// }
 
 function gameOverMessage() {
     promptEl.innerHTML = `<p>😬 GAME OVER!</p>`
@@ -353,7 +354,7 @@ function gameOverMessage() {
     setTimeout(() => {
         init()
         addButtons()
-        addBtnEvtListeners()
+        addButtonEventListeners()
     }, messageDuration)
 }
 
@@ -362,8 +363,8 @@ function addButtons() {
     gameModeEls.style.visibility = 'visible'
 }
 
-function addBtnEvtListeners() {
-    document.body.addEventListener('keydown', btnsKeyBehavior)
+function addButtonEventListeners() {
+    document.body.addEventListener('keydown', buttonsKeyBehavior)
     gameModeEls.addEventListener('click', handleGameMode)
     startGameEl.addEventListener('click', handleStartGame)
 }
