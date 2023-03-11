@@ -18,7 +18,6 @@ html {
 
 * {
     box-sizing: border-box;
-    /* border: 1px solid black;  */
 }
 
 h1 {
@@ -50,7 +49,6 @@ main {
 #scores {
     display: flex;
     justify-content: space-around;
-    /* justify-content: space-evenly also works nicely */
     margin-bottom: -100px;
     font-size: 1.55em;
 }
@@ -78,12 +76,12 @@ main {
 .square > p {
     rotate: -45deg;
     font-size: 3.5em;
+    cursor: default;
 }
 
 #game-modes {
     display: flex;
     justify-content: space-around;
-    /* justify-content: space-evenly also works nicely */
     margin-top: -75px;
     margin-bottom: 65px;
 }
@@ -115,10 +113,6 @@ main {
 
 #start-game:hover {
     background-color: #FDA760;
-}
-
-.square > p {
-    cursor: default;
 }
 
 #ArrowUp {
