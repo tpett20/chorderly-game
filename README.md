@@ -30,6 +30,8 @@ Especially when playing the same chord consecutively, wait for the sound to fini
 # Next Steps
 The game will eventually include options to change instruments and keys. This will allow the player to broaden the range of their musical ear. 
 
+The game will also eventually feature a game mode that asks the player to repeat random chord sequences of a selected length. With each correct answer, the game will play a brand new random sequence. 
+
 # Screenshots
 ![Chorderly - Get Ready](https://i.imgur.com/rQQkoC7.png)
 ![Chorderly - Gameplay](https://i.imgur.com/6XnV85U.png)

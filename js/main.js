@@ -141,7 +141,7 @@ function handleGameMode(evt) {
 function handleStartGame() {
     removeButtons()
     startGamePrompt()
-    // runComputerTurn called via setTimeout in startGamePrompt
+    // the runComputerTurn function is called via setTimeout in startGamePrompt
 }
 
 function removeButtons() {
@@ -160,7 +160,7 @@ function startGamePrompt() {
 
 function runComputerTurn() {
     removeAllEventListeners()
-    addRandomChordToComputerSequence()
+    addToComputerSequence()
     playComputerSequence()
     playerTurnPrompt()
 }
@@ -173,7 +173,7 @@ function removeAllEventListeners() {
     gameBoardEl.removeEventListener('click', handleSquarePlay)
 }
 
-function addRandomChordToComputerSequence() {
+function addToComputerSequence() {
     let chordIdx = getRandomChordWithoutRepeat()
     computerSequence.push(chordIdx)
 }
