@@ -174,8 +174,17 @@ function removeAllEventListeners() {
 }
 
 function addRandomChordToComputerSequence() {
-    let chordIdx = Math.floor(Math.random() * 4)
+    let chordIdx = getRandomChordWithoutRepeat()
     computerSequence.push(chordIdx)
+}
+
+function getRandomChordWithoutRepeat() {
+    let chordIdx = Math.floor(Math.random() * 4)
+    const previousChordIdx = computerSequence[computerSequence.length - 1]
+    while(chordIdx === previousChordIdx) {
+        chordIdx = Math.floor(Math.random() * 4)
+    }
+    return chordIdx
 }
 
 function playComputerSequence() {
