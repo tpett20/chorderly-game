@@ -140,8 +140,8 @@ function handleGameMode(evt) {
 
 function handleStartGame() {
     removeButtons()
-    startGamePrompt()
-    // the runComputerTurn function is called via setTimeout in startGamePrompt
+    promptStartGame()
+    // the runComputerTurn function is called via setTimeout in promptStartGame
 }
 
 function removeButtons() {
@@ -149,7 +149,7 @@ function removeButtons() {
     gameModeEls.style.visibility = 'hidden'
 }
 
-function startGamePrompt() {
+function promptStartGame() {
     promptEl.innerHTML = `<p>Get Ready to Repeat Some Chords!</p>`
     promptEl.style.visibility = 'visible'
     setTimeout(() => {
@@ -162,7 +162,7 @@ function runComputerTurn() {
     removeAllEventListeners()
     addToComputerSequence()
     playComputerSequence()
-    playerTurnPrompt()
+    promptPlayerTurn()
 }
 
 function removeAllEventListeners() {
@@ -181,7 +181,7 @@ function addToComputerSequence() {
 function getRandomChordWithoutRepeat() {
     let chordIdx = Math.floor(Math.random() * 4)
     const previousChordIdx = computerSequence[computerSequence.length - 1]
-    while(chordIdx === previousChordIdx) {
+    while (chordIdx === previousChordIdx) {
         chordIdx = Math.floor(Math.random() * 4)
     }
     return chordIdx
@@ -215,7 +215,7 @@ function unhighlightSquare(playingSquareEl) {
     playingSquareEl.classList.remove('playing')
 }
 
-function playerTurnPrompt() {
+function promptPlayerTurn() {
     setTimeout(() => {
         promptEl.innerHTML = `<p>Your Turn!</p>`
         promptEl.style.visibility = 'visible'
@@ -287,11 +287,11 @@ function compareSequenceLengths() {
         inputIdx = 0
         playerTurn = false
         render()
-        computerTurnPrompt()
+        promptComputerTurn()
     }
 }
 
-function computerTurnPrompt() {
+function promptComputerTurn() {
     setTimeout(() => {
         promptEl.innerHTML = `<p>👏 Listen Up Again!</p>`
         promptEl.style.visibility = 'visible'
@@ -307,7 +307,7 @@ function gameOver() {
     checkHighScore()
     playUglyChord()
     revealCorrectAnswer()
-    gameOverMessage()
+    displayGameOver()
 }
 
 function checkHighScore() {
@@ -339,7 +339,7 @@ function unhighlightCorrectSquare(playingSquareEl) {
     playingSquareEl.classList.remove('correct')
 }
 
-function gameOverMessage() {
+function displayGameOver() {
     promptEl.innerHTML = `<p>😬 GAME OVER!</p>`
     promptEl.style.visibility = 'visible'
     setTimeout(() => {
